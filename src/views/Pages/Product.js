@@ -34,18 +34,20 @@ const Product = () => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Page visits</h3>
+                    <h3 className="mb-0">Products table</h3>
                   </div>
                   <div className="col text-right">
+                    
                     <Button
                       color="primary"
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}
-                      size="sm"
+                      size="md"
                     >
-                      See all
+                      Add New Product
                     </Button>
                   </div>
+                  
                 </Row>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
@@ -58,19 +60,14 @@ const Product = () => {
                   </tr>
                 </thead>
                 <tbody>
-                    {console.log("before")}
                   {products.map((item)=>{
                       return(<tr>
                       <th scope="row">{item.name}</th>
                       <td>{item.categoryId.name}</td>
                       <td>{item.stock}</td>
                       <td>{item.price}</td>
-                      {/* <td>
-                        <i className="fas fa-arrow-up text-success mr-3" /> 46,53%
-                      </td> */}
                     </tr>)
                   })}
-                  {console.log("after")}
                 </tbody>
               </Table>
             </Card>
