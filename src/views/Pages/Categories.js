@@ -16,6 +16,8 @@ import {
   Input,
   Form,
 } from "reactstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Categories = () => {
   const [category, setCategory] = useState([]);
@@ -34,6 +36,7 @@ const Categories = () => {
     const result = await axios.get(`/category/subcategory`);
     setSubCategory(result.data);
   };
+  // Cat Modal
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [inputs, setInputs] = useState({});
@@ -50,16 +53,68 @@ const Categories = () => {
         parentCategory: inputs.parentCategory,
       })
       .then((response) => {
-        console.log(response);
+        fetchData();
+        if (response.data.msg === "Category Created Sucessfully"){
+          toast.success(response.data.msg,{
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose:2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg,{
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+    toggle();
   };
-
+  // Sub Cat Modal
+  const [scModal, setSCModal] = useState(false);
+  const scToggle = () => setSCModal(!scModal);
+  const [scInputs, setscInputs] = useState({});
+  let handleScChange = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
+    setscInputs((values) => ({ ...values, [name]: value }));
+  };
+  let handleScSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .post("/category/subcategory/create", {
+        name: scInputs.name,
+        parentCategory: scInputs.parentCategory,
+      })
+      .then((response) => {
+        fetchSubCatData();
+        if (response.data.msg === "Category Created Sucessfully"){
+          toast.success(response.data.msg,{
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose:2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg,{
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    scToggle();
+  };
+  
   return (
     <div>
       <Header />
+      <ToastContainer/>
       <Modal isOpen={modal}>
         <Form onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add New Category</ModalHeader>
@@ -75,8 +130,11 @@ const Categories = () => {
                 type="select"
                 name="parentCategory"
                 id="parentCategory"
+                defaultValue={'DEFAULT'}
                 onChange={handleChange}
+                required
               >
+                <option value="DEFAULT" disabled>Choose a Category ...</option>
                 <option value={10001}>
                   Electronics Components, Power & Connectors
                 </option>
@@ -87,14 +145,7 @@ const Categories = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button
-              type="submit"
-              color="primary"
-              //   onClick={
-              //     // Work
-              //     console.log("haalo")
-              //   }
-            >
+            <Button type="submit" color="primary">
               Submit
             </Button>
             <Button color="secondary" onClick={toggle}>
@@ -103,9 +154,50 @@ const Categories = () => {
           </ModalFooter>
         </Form>
       </Modal>
-      <Container className="mt--6">
+      {/* //? SC MODAL */}
+
+      <Modal isOpen={scModal}>
+        <Form onSubmit={handleScSubmit}>
+          <ModalHeader toggle={scToggle}>Add New Category</ModalHeader>
+          <ModalBody>
+            <Input
+              type="text"
+              name="name"
+              required
+              onChange={handleScChange}
+            ></Input>
+            <div className="mt-2">
+              <Input
+                type="select"
+                defaultValue={'DEFAULT'}
+                name="parentCategory"
+                id="parentCategory"
+                onChange={handleScChange}
+              >
+                
+                <option value="DEFAULT" disabled >Choose a Category ...</option>
+                {category.map((item, index) => {
+                  return (
+                  <option value={item._id}>{item.name}</option>
+                    );
+                })}
+              </Input>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit" color="primary">
+              Submit
+            </Button>
+            <Button color="secondary" onClick={scToggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+
+      <Container className="mt--9">
         <Row>
-          <Col xl="4">
+          <Col xl="4" className="mt-5">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row className="align-items-center">
@@ -117,7 +209,7 @@ const Categories = () => {
                       color="primary"
                       href="#pablo"
                       onClick={toggle}
-                      size="md"
+                      size="sm"
                     >
                       Add New Category
                     </Button>
@@ -162,13 +254,8 @@ const Categories = () => {
               </Table>
             </Card>
           </Col>
-          {/* </Row>
-      <Row className="mt-5"> */}
-          {/* <Modal isOpen={subCategory}/>
-      <Form>
 
-      </Form> */}
-          <Col className="mb-5 mb-xl-0" xl="7">
+          <Col className="mt-5 mb-xl-0" xl="7">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row className="align-items-center">
@@ -179,8 +266,8 @@ const Categories = () => {
                     <Button
                       color="primary"
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="md"
+                      onClick={scToggle}
+                      size="sm"
                     >
                       Add New Sub-Category
                     </Button>
@@ -214,7 +301,16 @@ const Categories = () => {
                           <Button
                             color="primary"
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={
+                              (e) => e.preventDefault()
+                              // axios.delete(`/category/subcategory/${item._id}/delete`)
+                              // .then((response) => {
+                              //   console.log(response);
+                              // })
+                              // .catch((err) => {
+                              //   console.log(err);
+                              // })
+                            }
                             size="sm"
                           >
                             Delete

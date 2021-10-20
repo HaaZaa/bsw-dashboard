@@ -4,15 +4,8 @@ import {
     Button,
     Card,
     CardHeader,
-    CardBody,
-    NavItem,
-    NavLink,
-    Nav,
-    Progress,
     Table,
-    Container,
     Row,
-    Col,
   } from "reactstrap";
   import Header from 'components/Headers/Header.js';
 const Product = () => {
