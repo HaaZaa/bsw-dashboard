@@ -1,21 +1,4 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-/*eslint-disable*/
 import { useState } from "react";
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
@@ -129,7 +112,7 @@ const Sidebar = (props) => {
         {/* User */}
         <Nav className="align-items-center d-md-none">
           <UncontrolledDropdown nav>
-            <DropdownToggle nav className="nav-link-icon">
+            {/* <DropdownToggle nav className="nav-link-icon">
               <i className="ni ni-bell-55" />
             </DropdownToggle>
             <DropdownMenu
@@ -141,11 +124,11 @@ const Sidebar = (props) => {
               <DropdownItem>Another action</DropdownItem>
               <DropdownItem divider />
               <DropdownItem>Something else here</DropdownItem>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </UncontrolledDropdown>
           <UncontrolledDropdown nav>
-            <DropdownToggle nav>
-              <Media className="align-items-center">
+            {/* <DropdownToggle nav>
+               <Media className="align-items-center">
                 <span className="avatar avatar-sm rounded-circle">
                   <img
                     alt="..."
@@ -155,8 +138,8 @@ const Sidebar = (props) => {
                     }
                   />
                 </span>
-              </Media>
-            </DropdownToggle>
+              </Media> 
+            </DropdownToggle> */}
             {/* <DropdownMenu className="dropdown-menu-arrow" right>
               <DropdownItem className="noti-title" header tag="div">
                 <h6 className="text-overflow m-0">Welcome!</h6>

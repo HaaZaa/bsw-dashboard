@@ -302,14 +302,16 @@ const Categories = () => {
                             color="primary"
                             href="#pablo"
                             onClick={
-                              (e) => e.preventDefault()
-                              // axios.delete(`/category/subcategory/${item._id}/delete`)
-                              // .then((response) => {
-                              //   console.log(response);
-                              // })
-                              // .catch((err) => {
-                              //   console.log(err);
-                              // })
+                              () =>{
+                                axios.delete(`/category/subcategory/${item._id}/delete`)
+                               .then((response) => {
+                                fetchSubCatData();
+                                 console.log(response);
+                               })
+                               .catch((err) => {
+                                 console.log(err);
+                               })
+                              } 
                             }
                             size="sm"
                           >
