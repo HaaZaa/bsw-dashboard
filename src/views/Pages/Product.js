@@ -8,8 +8,17 @@ import {
   Row,
   Container,
   CardBody,
+  Modal,
+  Form,
+  ModalHeader,
+  ModalBody,
+  Input,
+  ModalFooter,
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Product = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -19,9 +28,116 @@ const Product = () => {
     const result = await axios.get(`/product`);
     setProducts(result.data);
   };
+  // Add Product MODAL
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [inputs, setInputs] = useState({});
+  let handleChange = (props) => {
+    let Pname = props.traget.Pname;
+    let Pdescription = props.traget.Pdescription;
+    let Pprize = props.traget.Pprize;
+    let CategoryID = props.traget.CategoryID;
+    let Pstock = props.traget.Pstock;
+    let Pimage = props.traget.Pimage;
+    setInputs((values) => ({}));
+  };
+  let handleSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .post("/products/create", {
+        Pname: inputs.Pname,
+        Pdescription: inputs.Pdescription,
+        Pprize: inputs.Pprize,
+        CategoryID: inputs.CategoryID,
+        Pstock: inputs.Pstock,
+        Pimage: inputs.Pimage,
+      })
+      .then((response) => {
+        fetchData();
+        if (response.data.msg === "Product Added Succussfully") {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    toggle();
+  };
   return (
     <div>
       <Header />
+      <Modal isOpen={modal}>
+        <Form onSubmit={handleSubmit}>
+          <ModalHeader toggle={toggle}>Add New Product</ModalHeader>
+          <ModalBody>
+            <Input
+              name="Pname"
+              type="text"
+              placeholder="Enter Product Name"
+              onChange={handleChange}
+              required
+            ></Input>
+            <Input
+              name="Pdescription"
+              type="textarea"
+              placeholder="Enter Product Description"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <Input
+              name="Pprize"
+              type="number"
+              placeholder="Enter Product Prize"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <Input
+              name="CategoryID"
+              type="text"
+              placeholder="Enter Product's Category ID"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <Input
+              name="Pstock"
+              type="number"
+              placeholder="Enter Amount of Product in stock "
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <Input
+              name="Pimage"
+              type="file"
+              placeholder="Upload product Image"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+          </ModalBody>
+          <ModalFooter>
+            <Button className="btn btn-success" type="submit">
+              Submit
+            </Button>
+            <Button onClick={toggle} color="secondary">
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
       <Container className="mt--7" fluid>
         <Row>
           <div className="col">
@@ -37,7 +153,7 @@ const Product = () => {
                       color="primary"
                       herf="pablo"
                       size="sm"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={toggle}
                     >
                       ADD PRODUCT
                     </Button>
@@ -49,8 +165,10 @@ const Product = () => {
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
+                      <th scope="col">product Image</th>
                       <th scope="col">product name</th>
                       <th scope="col">Category Name</th>
+                      <th scope="col">Discription</th>
                       <th scope="col">Stock</th>
                       <th scope="col">Price</th>
                     </tr>
@@ -59,8 +177,16 @@ const Product = () => {
                     {products.map((item) => {
                       return (
                         <tr>
-                          <th scope="row">{item.name}</th>
+                          <td>
+                            <img
+                              src={`http://localhost:5000/${item.image}`}
+                              height={"30vh"}
+                              width={"30%"}
+                            />
+                          </td>
+                          <td>{item.name}</td>
                           <td>{item.categoryId.name}</td>
+                          <td>{item.description}</td>
                           <td>{item.stock}</td>
                           <td>{item.price}</td>
                         </tr>

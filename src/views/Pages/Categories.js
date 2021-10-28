@@ -147,7 +147,7 @@ const Categories = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" color="primary">
+            <Button type="submit" className="btn btn-success">
               Submit
             </Button>
             <Button color="secondary" onClick={toggle}>
