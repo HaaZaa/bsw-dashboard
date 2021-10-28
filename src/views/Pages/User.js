@@ -1,8 +1,17 @@
 import Header from "components/Headers/Header.js";
-import React from "react";
-import { Card, CardHeader, CardBody, Container, Row } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Card, CardHeader, CardBody, Container, Row, Table } from "reactstrap";
+import axios from "../../axios.js";
 
 const User = () => {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const result = await axios.get(`/user`);
+    setUsers(result.data);
+  };
   return (
     <div>
       <Header />
@@ -15,9 +24,34 @@ const User = () => {
                 <h3 className="mb-0">User information</h3>
               </CardHeader>
               <CardBody>
-                <Row>
-                  <h1>this is the area the data will be shown</h1>
-                </Row>
+                <div>
+                  <Table className="align-item-center table-flush" responsive>
+                    <thead className="thead-light">
+                      <tr>
+                        <th scope="col">User-Name</th>
+                        <th scope="col">E-Mail</th>
+                        <th scope="col">User-Address</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Contact-No</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((item) => {
+                        return (
+                          <tr>
+                            <td>{item.name}</td>
+                            <td>{item.email}</td>
+                            <td>{item.address}</td>
+                            <td>{item.status}</td>
+                            <td>{item.role}</td>
+                            <td>{item.phone_no}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                </div>
               </CardBody>
             </Card>
           </div>

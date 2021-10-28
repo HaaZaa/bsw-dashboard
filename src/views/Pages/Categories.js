@@ -199,11 +199,11 @@ const Categories = () => {
       <Container className="mt--9">
         <Row>
           <Col xl="4" className="mt-5">
-            <Card className="bg-default shadow">
+            <Card className="shadow">
               <CardHeader className="bg-transparent border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="text-white mb-0">Category</h3>
+                    <h3 className="mb-0">Category</h3>
                   </div>
                   <div className="col text-right">
                     <Button
@@ -217,11 +217,8 @@ const Categories = () => {
                   </div>
                 </Row>
               </CardHeader>
-              <Table
-                className="align-items-center table-dark table-flush"
-                responsive
-              >
-                <thead className="thead-dark">
+              <Table className="align-items-center  table-flush" responsive>
+                <thead className="thead-light">
                   <tr>
                     <th scope="col">Categories Names</th>
                     <th scope="col">Actions</th>

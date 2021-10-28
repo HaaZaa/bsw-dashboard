@@ -73,27 +73,6 @@ const Product = () => {
           </div>
         </Row>
       </Container>
-      {/* 
-      <h1>Products</h1>
-      <Card className="shadow">
-        <CardHeader className="border-0">
-          <Row className="align-items-center">
-            <div className="col">
-              <h3 className="mb-0">Products table</h3>
-            </div>
-            <div className="col text-right">
-              <Button
-                color="primary"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-                size="md"
-              >
-                Add New Product
-              </Button>
-            </div>
-          </Row>
-        </CardHeader>
-      </Card>*/}
     </div>
   );
 };
