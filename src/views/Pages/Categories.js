@@ -16,8 +16,8 @@ import {
   Input,
   Form,
 } from "reactstrap";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Categories = () => {
   const [category, setCategory] = useState([]);
@@ -36,7 +36,7 @@ const Categories = () => {
     const result = await axios.get(`/category/subcategory`);
     setSubCategory(result.data);
   };
-  // Cat Modal
+  // Category Modal
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [inputs, setInputs] = useState({});
@@ -54,14 +54,14 @@ const Categories = () => {
       })
       .then((response) => {
         fetchData();
-        if (response.data.msg === "Category Created Sucessfully"){
-          toast.success(response.data.msg,{
+        if (response.data.msg === "Category Created Sucessfully") {
+          toast.success(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose:2000,
+            autoClose: 2000,
             pauseOnHover: false,
           });
         } else {
-          toast.warning(response.data.msg,{
+          toast.warning(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 2000,
             pauseOnHover: false,
@@ -73,7 +73,7 @@ const Categories = () => {
       });
     toggle();
   };
-  // Sub Cat Modal
+  // Sub-Category  Modal
   const [scModal, setSCModal] = useState(false);
   const scToggle = () => setSCModal(!scModal);
   const [scInputs, setscInputs] = useState({});
@@ -91,14 +91,14 @@ const Categories = () => {
       })
       .then((response) => {
         fetchSubCatData();
-        if (response.data.msg === "Category Created Sucessfully"){
-          toast.success(response.data.msg,{
+        if (response.data.msg === "Category Created Sucessfully") {
+          toast.success(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose:2000,
+            autoClose: 2000,
             pauseOnHover: false,
           });
         } else {
-          toast.warning(response.data.msg,{
+          toast.warning(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 2000,
             pauseOnHover: false,
@@ -110,11 +110,11 @@ const Categories = () => {
       });
     scToggle();
   };
-  
+
   return (
     <div>
       <Header />
-      <ToastContainer/>
+      <ToastContainer />
       <Modal isOpen={modal}>
         <Form onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add New Category</ModalHeader>
@@ -130,11 +130,13 @@ const Categories = () => {
                 type="select"
                 name="parentCategory"
                 id="parentCategory"
-                defaultValue={'DEFAULT'}
+                defaultValue={"DEFAULT"}
                 onChange={handleChange}
                 required
               >
-                <option value="DEFAULT" disabled>Choose a Category ...</option>
+                <option value="DEFAULT" disabled>
+                  Choose a Category ...
+                </option>
                 <option value={10001}>
                   Electronics Components, Power & Connectors
                 </option>
@@ -169,23 +171,22 @@ const Categories = () => {
             <div className="mt-2">
               <Input
                 type="select"
-                defaultValue={'DEFAULT'}
+                defaultValue={"DEFAULT"}
                 name="parentCategory"
                 id="parentCategory"
                 onChange={handleScChange}
               >
-                
-                <option value="DEFAULT" disabled >Choose a Category ...</option>
+                <option value="DEFAULT" disabled>
+                  Choose a Category ...
+                </option>
                 {category.map((item, index) => {
-                  return (
-                  <option value={item._id}>{item.name}</option>
-                    );
+                  return <option value={item._id}>{item.name}</option>;
                 })}
               </Input>
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" color="primary">
+            <Button className="btn btn-success" type="submit">
               Submit
             </Button>
             <Button color="secondary" onClick={scToggle}>
@@ -198,11 +199,11 @@ const Categories = () => {
       <Container className="mt--9">
         <Row>
           <Col xl="4" className="mt-5">
-            <Card className="shadow">
-              <CardHeader className="border-0">
+            <Card className="bg-default shadow">
+              <CardHeader className="bg-transparent border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Category</h3>
+                    <h3 className="text-white mb-0">Category</h3>
                   </div>
                   <div className="col text-right">
                     <Button
@@ -216,8 +217,11 @@ const Categories = () => {
                   </div>
                 </Row>
               </CardHeader>
-              <Table className="align-items-center table-flush" responsive>
-                <thead className="thead-light">
+              <Table
+                className="align-items-center table-dark table-flush"
+                responsive
+              >
+                <thead className="thead-dark">
                   <tr>
                     <th scope="col">Categories Names</th>
                     <th scope="col">Actions</th>
@@ -230,7 +234,7 @@ const Categories = () => {
                         <td scope="row">{item.name}</td>
                         <td>
                           <Button
-                            color="primary"
+                            className="btn btn-success"
                             href="#pablo"
                             onClick={(e) => e.preventDefault()}
                             size="sm"
@@ -239,11 +243,13 @@ const Categories = () => {
                           </Button>
 
                           <Button
-                            color="primary"
+                            className="btn btn-danger"
                             href="#pablo"
                             onClick={(e) => e.preventDefault()}
                             size="sm"
                           >
+                            {/* trash icon  */}
+                            {/* <i className="fa-solid fa-trash-can" /> */}
                             Delete
                           </Button>
                         </td>
@@ -290,7 +296,7 @@ const Categories = () => {
                         <td scope="row">{item.parentCategory.name}</td>
                         <td>
                           <Button
-                            color="primary"
+                            className="btn btn-success"
                             href="#pablo"
                             onClick={(e) => e.preventDefault()}
                             size="sm"
@@ -299,20 +305,21 @@ const Categories = () => {
                           </Button>
 
                           <Button
-                            color="primary"
+                            className="btn btn-danger"
                             href="#pablo"
-                            onClick={
-                              () =>{
-                                axios.delete(`/category/subcategory/${item._id}/delete`)
-                               .then((response) => {
-                                fetchSubCatData();
-                                 console.log(response);
-                               })
-                               .catch((err) => {
-                                 console.log(err);
-                               })
-                              } 
-                            }
+                            onClick={() => {
+                              axios
+                                .delete(
+                                  `/category/subcategory/${item._id}/delete`
+                                )
+                                .then((response) => {
+                                  fetchSubCatData();
+                                  console.log(response);
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+                            }}
                             size="sm"
                           >
                             Delete

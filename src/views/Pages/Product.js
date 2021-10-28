@@ -1,71 +1,101 @@
-import React, {useEffect,useState} from 'react';
+import React, { useEffect, useState } from "react";
 import axios from "../../axios.js";
 import {
-    Button,
-    Card,
-    CardHeader,
-    Table,
-    Row,
-  } from "reactstrap";
-  import Header from 'components/Headers/Header.js';
+  Button,
+  Card,
+  CardHeader,
+  Table,
+  Row,
+  Container,
+  CardBody,
+} from "reactstrap";
+import Header from "components/Headers/Header.js";
 const Product = () => {
-    const [products,setProducts]=useState([]);
-    useEffect(()=>{
-        fetchData();
-    },[])
-    const fetchData=async()=>{
-        const result=await axios.get(`/product`);
-        setProducts(result.data)
-    }
-    return (
-      
-        <div>
-          <Header />
-            {console.log("products:",products)}
-            <h1>Products</h1>
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const result = await axios.get(`/product`);
+    setProducts(result.data);
+  };
+  return (
+    <div>
+      <Header />
+      <Container className="mt--7" fluid>
+        <Row>
+          <div className="col">
+            {console.log("products:", products)}
             <Card className="shadow">
-              <CardHeader className="border-0">
+              <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Products table</h3>
+                    <h3 className="mt-0">Products details</h3>
                   </div>
                   <div className="col text-right">
-                    
                     <Button
                       color="primary"
-                      href="#pablo"
+                      herf="pablo"
+                      size="sm"
                       onClick={(e) => e.preventDefault()}
-                      size="md"
                     >
-                      Add New Product
+                      ADD PRODUCT
                     </Button>
                   </div>
-                  
                 </Row>
               </CardHeader>
-              <Table className="align-items-center table-flush" responsive>
-                <thead className="thead-light">
-                  <tr>
-                    <th scope="col">product name</th>
-                    <th scope="col">Category Name</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map((item)=>{
-                      return(<tr>
-                      <th scope="row">{item.name}</th>
-                      <td>{item.categoryId.name}</td>
-                      <td>{item.stock}</td>
-                      <td>{item.price}</td>
-                    </tr>)
-                  })}
-                </tbody>
-              </Table>
+              <CardBody>
+                {/* Table body */}
+                <Table className="align-items-center table-flush" responsive>
+                  <thead className="thead-light">
+                    <tr>
+                      <th scope="col">product name</th>
+                      <th scope="col">Category Name</th>
+                      <th scope="col">Stock</th>
+                      <th scope="col">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products.map((item) => {
+                      return (
+                        <tr>
+                          <th scope="row">{item.name}</th>
+                          <td>{item.categoryId.name}</td>
+                          <td>{item.stock}</td>
+                          <td>{item.price}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </CardBody>
             </Card>
-        </div>
-    )
-}
+          </div>
+        </Row>
+      </Container>
+      {/* 
+      <h1>Products</h1>
+      <Card className="shadow">
+        <CardHeader className="border-0">
+          <Row className="align-items-center">
+            <div className="col">
+              <h3 className="mb-0">Products table</h3>
+            </div>
+            <div className="col text-right">
+              <Button
+                color="primary"
+                href="#pablo"
+                onClick={(e) => e.preventDefault()}
+                size="md"
+              >
+                Add New Product
+              </Button>
+            </div>
+          </Row>
+        </CardHeader>
+      </Card>*/}
+    </div>
+  );
+};
 
-export default Product
+export default Product;

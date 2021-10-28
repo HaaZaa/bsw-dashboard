@@ -1,10 +1,11 @@
-
 import Index from "views/Index.js";
 import Categories from "views/Pages/Categories.js";
 import Product from "views/Pages/Product.js";
 import Orders from "views/Pages/Orders.js";
 import User from "views/Pages/User.js";
 import Slider from "views/Pages/Slider.js";
+import Logout from "views/Pages/Logout.js";
+import Tables from "views/examples/Tables.js";
 var routes = [
   {
     path: "/index",
@@ -16,7 +17,7 @@ var routes = [
   {
     path: "/categories",
     name: "Categories",
-    icon: "ni ni-planet text-blue",
+    icon: "ni ni-align-center",
     component: Categories,
     layout: "/admin",
   },
@@ -24,7 +25,7 @@ var routes = [
   {
     path: "/product",
     name: "Products",
-    icon: "ni ni-bullet-list-67",
+    icon: "ni ni-basket",
     component: Product,
     layout: "/admin",
   },
@@ -40,16 +41,29 @@ var routes = [
   {
     path: "/user",
     name: "Users",
-    icon: "ni ni-bullet-list-67",
+    icon: "ni ni-circle-08",
     component: User,
     layout: "/admin",
   },
   {
     path: "/slider",
     name: "Slider",
-    icon: "ni ni-bullet-list-67",
+    icon: "ni ni-ungroup",
     component: Slider,
     layout: "/admin",
-  }
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    icon: "ni ni-button-power",
+    component: Logout,
+    layout: "/admin",
+  },
+  {
+    path: "/temTables",
+    name: "Table",
+    component: Tables,
+    layout: "/admin",
+  },
 ];
 export default routes;
