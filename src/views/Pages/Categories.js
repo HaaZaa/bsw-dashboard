@@ -207,7 +207,7 @@ const Categories = () => {
                   </div>
                   <div className="col text-right">
                     <Button
-                      color="primary"
+                      color="btn btn-info"
                       href="#pablo"
                       onClick={toggle}
                       size="sm"
@@ -242,11 +242,19 @@ const Categories = () => {
                           <Button
                             className="btn btn-danger"
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={() => {
+                              axios
+                                .delete(`/category/${item._id}/delete`)
+                                .then((response) => {
+                                  fetchData();
+                                  console.log(response);
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+                            }}
                             size="sm"
                           >
-                            {/* trash icon  */}
-                            {/* <i className="fa-solid fa-trash-can" /> */}
                             Delete
                           </Button>
                         </td>
@@ -267,7 +275,7 @@ const Categories = () => {
                   </div>
                   <div className="col text-right">
                     <Button
-                      color="primary"
+                      color="btn btn-info"
                       href="#pablo"
                       onClick={scToggle}
                       size="sm"

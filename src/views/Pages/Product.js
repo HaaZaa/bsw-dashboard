@@ -33,13 +33,9 @@ const Product = () => {
   const toggle = () => setModal(!modal);
   const [inputs, setInputs] = useState({});
   let handleChange = (props) => {
-    let Pname = props.traget.Pname;
-    let Pdescription = props.traget.Pdescription;
-    let Pprize = props.traget.Pprize;
-    let CategoryID = props.traget.CategoryID;
-    let Pstock = props.traget.Pstock;
-    let Pimage = props.traget.Pimage;
-    setInputs((values) => ({}));
+    let name = props.target.name;
+    let value = props.target.value;
+    setInputs((values) => ({ ...values, [name]: value }));
   };
   let handleSubmit = (props) => {
     props.preventDefault();
@@ -168,12 +164,12 @@ const Product = () => {
                       <th scope="col">product Image</th>
                       <th scope="col">product name</th>
                       <th scope="col">Category Name</th>
-                      <th scope="col">Discription</th>
                       <th scope="col">Stock</th>
                       <th scope="col">Price</th>
+                      <th scope="col">Featured</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="align-item-center">
                     {products.map((item) => {
                       return (
                         <tr>
@@ -181,14 +177,16 @@ const Product = () => {
                             <img
                               src={`http://localhost:5000/${item.image}`}
                               height={"30vh"}
-                              width={"30%"}
+                              width={"20%"}
                             />
                           </td>
                           <td>{item.name}</td>
                           <td>{item.categoryId.name}</td>
-                          <td>{item.description}</td>
                           <td>{item.stock}</td>
                           <td>{item.price}</td>
+                          <td>
+                            <Input type="checkbox" />
+                          </td>
                         </tr>
                       );
                     })}

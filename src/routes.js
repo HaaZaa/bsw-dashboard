@@ -59,11 +59,11 @@ var routes = [
     component: Logout,
     layout: "/admin",
   },
-  {
-    path: "/temTables",
-    name: "Table",
-    component: Tables,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/temTables",
+  //   name: "Table",
+  //   component: Tables,
+  //   layout: "/admin",
+  // },
 ];
 export default routes;

@@ -85,7 +85,7 @@ const Sidebar = (props) => {
           <span className="navbar-toggler-icon" />
         </button>
         {/* Brand */}
-        {logo ? (
+        {/* {logo ? (
           <NavbarBrand className="pt-0" {...navbarBrandProps}>
             <img
               alt={logo.imgAlt}
@@ -93,9 +93,9 @@ const Sidebar = (props) => {
               src={logo.imgSrc}
             />
           </NavbarBrand>
-        ) : null}
+        ) : null} */}
         {/* User */}
-        <Nav className="align-items-center d-md-none">
+        {/* <Nav className="align-items-center d-md-none">
           <UncontrolledDropdown nav>
             {/* <DropdownToggle nav className="nav-link-icon">
               <i className="ni ni-bell-55" />
@@ -110,9 +110,9 @@ const Sidebar = (props) => {
               <DropdownItem divider />
               <DropdownItem>Something else here</DropdownItem>
             </DropdownMenu> */}
-          </UncontrolledDropdown>
-          <UncontrolledDropdown nav>
-            {/* <DropdownToggle nav>
+        {/* </UncontrolledDropdown>
+          <UncontrolledDropdown nav> */}
+        {/* <DropdownToggle nav>
                <Media className="align-items-center">
                 <span className="avatar avatar-sm rounded-circle">
                   <img
@@ -125,7 +125,7 @@ const Sidebar = (props) => {
                 </span>
               </Media> 
             </DropdownToggle> */}
-            {/* <DropdownMenu className="dropdown-menu-arrow" right>
+        {/* <DropdownMenu className="dropdown-menu-arrow" right>
               <DropdownItem className="noti-title" header tag="div">
                 <h6 className="text-overflow m-0">Welcome!</h6>
               </DropdownItem>
@@ -151,8 +151,8 @@ const Sidebar = (props) => {
                 <span>Logout</span>
               </DropdownItem>
             </DropdownMenu> */}
-          </UncontrolledDropdown>
-        </Nav>
+        {/* </UncontrolledDropdown>
+        </Nav> */}
         {/* Collapse */}
         <Collapse navbar isOpen={collapseOpen}>
           {/* Collapse header */}
