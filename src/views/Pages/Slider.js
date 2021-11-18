@@ -2,6 +2,7 @@ import React from "react";
 import Header from "components/Headers/Header.js";
 import styled from "@emotion/styled";
 import axios from "../../axios.js";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import {
   Card,
@@ -10,7 +11,12 @@ import {
   Button,
   Container,
   CardBody,
-  Table,
+  Modal,
+  Form,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
 } from "reactstrap";
 
 const Grid = styled.div`
@@ -40,16 +46,85 @@ const Slider = () => {
     const result = await axios.get(`/slider`);
     setSlider(result.data);
   };
+  {
+    /* ////////////////////////////////////// ADD-SLIDER //////////////////////// */
+  }
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [input, setInput] = useState({});
+  let handleChange = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
+    setInput((values) => ({ ...values, [name]: value }));
+  };
+  let handleSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .post("/slider/create", {
+        addSlider: input.addSlider,
+      })
+      .then((response) => {
+        fetchData();
+        if (response.data.msg === "Product Added Succussfully") {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    toggle();
+  };
   return (
     <div>
       <Header />
+      {/* ////////////////////////////////////// ADD-SLIDER //////////////////////// */}
+      <Modal isOpen={modal}>
+        <Form onSubmit={handleSubmit}>
+          <ModalHeader toggle={toggle}>Add new Slider</ModalHeader>
+          <ModalBody>
+            <h3>Upload an image for Slider</h3>
+            <Input
+              className="mt-2"
+              name="addSlider"
+              type="file"
+              onChange={handleChange}
+              required
+            ></Input>
+          </ModalBody>
+          <ModalFooter>
+            <Button className="btn btn-success" type="submit">
+              Submit
+            </Button>
+            <Button onClick={toggle} color="secondary">
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
       <Container className="mt--7" fluid>
         {/* Table */}
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="bg-transparent">
-                <h3 className="mb-0">Slider Details</h3>
+                <div>
+                  <h3 className="mb-0">Slider Details</h3>
+                </div>
+                <div className="col text-right">
+                  <Button color="btn btn-info" size="sm" onClick={toggle}>
+                    ADD NEW SLIDER
+                  </Button>
+                </div>
               </CardHeader>
               <CardBody>
                 <div>
@@ -59,13 +134,14 @@ const Slider = () => {
                         <Item>
                           <img
                             src={`http://localhost:5000/${item.image}`}
+                            height={"155vh"}
                             width={"100%"}
                           />
-                          <div className="mt-4">
-                            <Button color="primary" size="sm">
-                              Disable
+                          <div className=" mt-2">
+                            <Button color="btn btn-info" size="sm">
+                              Edit
                             </Button>
-                            <Button color="primary" size="sm">
+                            <Button color="btn btn-danger" size="sm">
                               Delete
                             </Button>
                           </div>

@@ -124,6 +124,7 @@ const Categories = () => {
               name="name"
               required
               onChange={handleChange}
+              placeholder="Enter Category Name..."
             ></Input>
             <div className="mt-2">
               <Input
@@ -167,6 +168,7 @@ const Categories = () => {
               name="name"
               required
               onChange={handleScChange}
+              placeholder="Enter Sub-Category Name..."
             ></Input>
             <div className="mt-2">
               <Input
@@ -228,7 +230,7 @@ const Categories = () => {
                   {category.map((item) => {
                     return (
                       <tr>
-                        <td scope="row">{item.name}</td>
+                        <td>{item.name}</td>
                         <td>
                           <Button
                             className="btn btn-success"
@@ -297,8 +299,8 @@ const Categories = () => {
                   {subCategory.map((item) => {
                     return (
                       <tr>
-                        <td scope="row">{item.name}</td>
-                        <td scope="row">{item.parentCategory.name}</td>
+                        <td>{item.name}</td>
+                        <td>{item.parentCategory.name}</td>
                         <td>
                           <Button
                             className="btn btn-success"
@@ -308,10 +310,8 @@ const Categories = () => {
                           >
                             Edit
                           </Button>
-
                           <Button
                             className="btn btn-danger"
-                            href="#pablo"
                             onClick={() => {
                               axios
                                 .delete(

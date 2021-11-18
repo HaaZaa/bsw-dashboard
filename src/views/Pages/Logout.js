@@ -1,15 +1,11 @@
-import Header from 'components/Headers/Header.js'
-import React from 'react'
+import React from "react";
 
 const Logout = () => {
-    return (
-        <div>
-            <Header/>
-            <h1>
-            This Page will go back to Login Page
-            </h1>
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>Redirect to login Page</h1>
+    </div>
+  );
+};
 
-export default Logout
+export default Logout;

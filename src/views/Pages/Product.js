@@ -16,7 +16,7 @@ import {
   ModalFooter,
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Product = () => {
@@ -27,6 +27,14 @@ const Product = () => {
   const fetchData = async () => {
     const result = await axios.get(`/product`);
     setProducts(result.data);
+  };
+  const [subCategory, setSubCategory] = useState([]);
+  useEffect(() => {
+    fetchSubCatData();
+  }, []);
+  const fetchSubCatData = async () => {
+    const result = await axios.get(`/category/subcategory`);
+    setSubCategory(result.data);
   };
   // Add Product MODAL
   const [modal, setModal] = useState(false);
@@ -72,6 +80,7 @@ const Product = () => {
   return (
     <div>
       <Header />
+      {/*///////////////////////////////// MODAL Add Product /////////////////////////////////////*/}
       <Modal isOpen={modal}>
         <Form onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add New Product</ModalHeader>
@@ -94,15 +103,15 @@ const Product = () => {
             <Input
               name="Pprize"
               type="number"
-              placeholder="Enter Product Prize"
+              placeholder="Enter Product Price"
               onChange={handleChange}
               className="mt-2"
               required
             ></Input>
             <Input
-              name="CategoryID"
-              type="text"
-              placeholder="Enter Product's Category ID"
+              name="PpartNo."
+              type="number"
+              placeholder="Enter Manufacture Part Number"
               onChange={handleChange}
               className="mt-2"
               required
@@ -115,10 +124,48 @@ const Product = () => {
               className="mt-2"
               required
             ></Input>
+            <div>
+              <h5 className="mt-2">
+                Select the checkbox if you want to feature this product
+              </h5>
+              <Input
+                name="Featured"
+                type="checkbox"
+                onChange={handleChange}
+                className="margin-left-3"
+              ></Input>
+            </div>
+
+            <div className="mt-2">
+              <Input
+                type="select"
+                defaultValue={"DEFAULT"}
+                name="parentCategory"
+                id="parentCategory"
+                onChange={handleChange}
+              >
+                <option value="DEFAULT" disabled>
+                  Choose a Category ...
+                </option>
+                {subCategory.map((item) => {
+                  return <option value={item._id}>{item.name}</option>;
+                })}
+              </Input>
+            </div>
+
+            <h5 className="mt-2">Upload product image</h5>
             <Input
               name="Pimage"
               type="file"
               placeholder="Upload product Image"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <h5 className="mt-2">Upload product PDF file</h5>
+            <Input
+              name="product PDF Details"
+              type="file"
               onChange={handleChange}
               className="mt-2"
               required
@@ -134,6 +181,86 @@ const Product = () => {
           </ModalFooter>
         </Form>
       </Modal>
+      {/*///////////////////////////////// MODAL Edit Product /////////////////////////////////////*/}
+      {/* <Modal isOpen={modal}>
+        <Form onSubmit={handleSubmit}>
+          <ModalHeader toggle={toggle}>Edit Product Details</ModalHeader>
+          <ModalBody>
+            <Input
+              name="Pname"
+              type="text"
+              placeholder="Enter Product Name"
+              onChange={handleChange}
+              required
+            ></Input>
+            <Input
+              name="Pdescription"
+              type="textarea"
+              placeholder="Enter Product Description"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <Input
+              name="Pprize"
+              type="number"
+              placeholder="Enter Product Price"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <Input
+              name="Pstock"
+              type="number"
+              placeholder="Enter Amount of Product in stock "
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <div className="mt-2">
+              <Input
+                type="select"
+                defaultValue={"DEFAULT"}
+                name="parentCategory"
+                id="parentCategory"
+                onChange={handleChange}
+              >
+                <option value="DEFAULT" disabled>
+                  Choose a Category ...
+                </option>
+                {subCategory.map((item) => {
+                  return <option value={item._id}>{item.name}</option>;
+                })}
+              </Input>
+            </div>
+
+            <h5 className="mt-2">Upload product image</h5>
+            <Input
+              name="Pimage"
+              type="file"
+              placeholder="Upload product Image"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+            <h5 className="mt-2">Upload product PDF file</h5>
+            <Input
+              name="product PDF Details"
+              type="file"
+              onChange={handleChange}
+              className="mt-2"
+              required
+            ></Input>
+          </ModalBody>
+          <ModalHeader>
+            <Button className="btn btn-success" type="submit">
+              Submit
+            </Button>
+            <Button color="secondary">Cancel</Button>
+          </ModalHeader>
+        </Form>
+      </Modal> */}
+      {/*///////////////////////////////// Product Table /////////////////////////////////////*/}
       <Container className="mt--7" fluid>
         <Row>
           <div className="col">
@@ -146,12 +273,12 @@ const Product = () => {
                   </div>
                   <div className="col text-right">
                     <Button
-                      color="primary"
+                      color="btn btn-info"
                       herf="pablo"
                       size="sm"
                       onClick={toggle}
                     >
-                      ADD PRODUCT
+                      ADD NEW PRODUCT
                     </Button>
                   </div>
                 </Row>
@@ -166,10 +293,10 @@ const Product = () => {
                       <th scope="col">Category Name</th>
                       <th scope="col">Stock</th>
                       <th scope="col">Price</th>
-                      <th scope="col">Featured</th>
+                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="align-item-center">
+                  <tbody>
                     {products.map((item) => {
                       return (
                         <tr>
@@ -177,15 +304,22 @@ const Product = () => {
                             <img
                               src={`http://localhost:5000/${item.image}`}
                               height={"30vh"}
-                              width={"20%"}
+                              width={"25%"}
                             />
                           </td>
                           <td>{item.name}</td>
                           <td>{item.categoryId.name}</td>
                           <td>{item.stock}</td>
                           <td>{item.price}</td>
+
                           <td>
-                            <Input type="checkbox" />
+                            <Button
+                              className="btn btn-success"
+                              size="sm"
+                              onClick=""
+                            >
+                              Edit
+                            </Button>
                           </td>
                         </tr>
                       );
