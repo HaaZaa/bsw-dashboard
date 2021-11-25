@@ -36,7 +36,9 @@ const Product = () => {
     const result = await axios.get(`/category/subcategory`);
     setSubCategory(result.data);
   };
-  // Add Product MODAL
+  {
+    /*///////////////////////////////// MODAL Add Product /////////////////////////////////////*/
+  }
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [inputs, setInputs] = useState({});
@@ -76,6 +78,61 @@ const Product = () => {
         console.log(err);
       });
     toggle();
+  };
+  {
+    /*///////////////////////////////// MODAL Edit Product /////////////////////////////////////*/
+  }
+  const [Pmodal, setPModal] = useState(false);
+  const [modalData, setModalData] = useState({
+    pname: "",
+    pdescription: "",
+    pprice: 0,
+    PMN: "",
+    pStock: "",
+    pCategory: "",
+    pImg: [],
+    pPDF: [],
+  });
+  const Ptoggle = () => {
+    setPModal(!Pmodal);
+  };
+  const [Pinputs, setPInputs] = useState({});
+  let handlePChange = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
+    setPInputs((values) => ({ ...values, [name]: value }));
+  };
+  let handlePSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .post("/products/create", {
+        Pname: Pinputs.Pname,
+        Pdescription: Pinputs.Pdescription,
+        Pprize: Pinputs.Pprize,
+        CategoryID: Pinputs.CategoryID,
+        Pstock: Pinputs.Pstock,
+        Pimage: Pinputs.Pimage,
+      })
+      .then((response) => {
+        fetchData();
+        if (response.data.msg === "Product Added Succussfully") {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    Ptoggle();
   };
   return (
     <div>
@@ -124,17 +181,6 @@ const Product = () => {
               className="mt-2"
               required
             ></Input>
-            <div>
-              <h5 className="mt-2">
-                Select the checkbox if you want to feature this product
-              </h5>
-              <Input
-                name="Featured"
-                type="checkbox"
-                onChange={handleChange}
-                className="margin-left-3"
-              ></Input>
-            </div>
 
             <div className="mt-2">
               <Input
@@ -152,13 +198,17 @@ const Product = () => {
                 })}
               </Input>
             </div>
+            <label>
+              Button to Feature product :{" "}
+              <input type="checkbox" name="Featured" onChange={handleChange} />
+            </label>
 
             <h5 className="mt-2">Upload product image</h5>
             <Input
               name="Pimage"
               type="file"
               placeholder="Upload product Image"
-              onChange={handleChange}
+              onChange={handlePChange}
               className="mt-2"
               required
             ></Input>
@@ -182,22 +232,28 @@ const Product = () => {
         </Form>
       </Modal>
       {/*///////////////////////////////// MODAL Edit Product /////////////////////////////////////*/}
-      {/* <Modal isOpen={modal}>
-        <Form onSubmit={handleSubmit}>
-          <ModalHeader toggle={toggle}>Edit Product Details</ModalHeader>
+      <Modal isOpen={Pmodal}>
+        <Form onSubmit={handlePSubmit}>
+          <ModalHeader toggle={Ptoggle}>Edit Product Details</ModalHeader>
           <ModalBody>
             <Input
               name="Pname"
               type="text"
+              value={modalData.pname}
+              onChange={(e) => {
+                setModalData((prev) => {
+                  prev.pname = e.target.value;
+                  return { ...prev };
+                });
+              }}
               placeholder="Enter Product Name"
-              onChange={handleChange}
               required
             ></Input>
             <Input
               name="Pdescription"
               type="textarea"
               placeholder="Enter Product Description"
-              onChange={handleChange}
+              onChange={handlePChange}
               className="mt-2"
               required
             ></Input>
@@ -205,7 +261,7 @@ const Product = () => {
               name="Pprize"
               type="number"
               placeholder="Enter Product Price"
-              onChange={handleChange}
+              onChange={handlePChange}
               className="mt-2"
               required
             ></Input>
@@ -213,7 +269,7 @@ const Product = () => {
               name="Pstock"
               type="number"
               placeholder="Enter Amount of Product in stock "
-              onChange={handleChange}
+              onChange={handlePChange}
               className="mt-2"
               required
             ></Input>
@@ -223,7 +279,7 @@ const Product = () => {
                 defaultValue={"DEFAULT"}
                 name="parentCategory"
                 id="parentCategory"
-                onChange={handleChange}
+                onChange={handlePChange}
               >
                 <option value="DEFAULT" disabled>
                   Choose a Category ...
@@ -239,7 +295,7 @@ const Product = () => {
               name="Pimage"
               type="file"
               placeholder="Upload product Image"
-              onChange={handleChange}
+              onChange={handlePChange}
               className="mt-2"
               required
             ></Input>
@@ -247,7 +303,7 @@ const Product = () => {
             <Input
               name="product PDF Details"
               type="file"
-              onChange={handleChange}
+              onChange={handlePChange}
               className="mt-2"
               required
             ></Input>
@@ -256,10 +312,12 @@ const Product = () => {
             <Button className="btn btn-success" type="submit">
               Submit
             </Button>
-            <Button color="secondary">Cancel</Button>
+            <Button color="secondary" onClick={Ptoggle} type="button">
+              Cancel
+            </Button>
           </ModalHeader>
         </Form>
-      </Modal> */}
+      </Modal>
       {/*///////////////////////////////// Product Table /////////////////////////////////////*/}
       <Container className="mt--7" fluid>
         <Row>
@@ -316,7 +374,20 @@ const Product = () => {
                             <Button
                               className="btn btn-success"
                               size="sm"
-                              onClick=""
+                              onClick={() => {
+                                setModalData((prev) => {
+                                  prev.pname = item.name;
+                                  prev.pdescription = item.description;
+                                  prev.pprice = item.price;
+                                  prev.PMN = item.PMN;
+                                  prev.pStock = item.stock;
+                                  prev.pCategory = item.categoryId.name;
+                                  prev.pImg = item.image;
+                                  prev.pPDF = item.PDF;
+                                  return { ...prev };
+                                });
+                                Ptoggle();
+                              }}
                             >
                               Edit
                             </Button>
