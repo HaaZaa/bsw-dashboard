@@ -5,10 +5,8 @@ import Orders from "views/Pages/Orders.js";
 import User from "views/Pages/User.js";
 import Slider from "views/Pages/Slider.js";
 import Logout from "views/Pages/Logout.js";
-import Maps from "views/examples/Maps";
-import Profile from "views/examples/Profile";
-import Login from "components/Footers/AuthFooter";
-import Register from "views/examples/Register";
+import Login from "views/Pages/Loign";
+import AccountSetting from "views/Pages/AccountSetting";
 // import Tables from "views/examples/Tables.js";
 var routes = [
   {
@@ -57,40 +55,20 @@ var routes = [
     component: Slider,
     layout: "/admin",
   },
+
+  {
+    path: "/AccountSetting",
+    name: "Account Setting",
+    icon: "ni ni-button-power text-primary font-weight-900",
+    component: AccountSetting,
+    layout: "/admin",
+  },
   {
     path: "/logout",
     name: "Logout",
     icon: "ni ni-button-power text-primary",
-    component: Logout,
-    layout: "/admin",
-  },
-  {
-    path: "/Maps",
-    name: "Maps",
-    icon: "ni ni-button-power text-primary",
-    component: Maps,
-    layout: "/admin",
-  },
-  {
-    path: "/profile",
-    name: "profile",
-    icon: "ni ni-button-power text-primary font-weight-900",
-    component: Profile,
-    layout: "/admin",
-  },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-button-power text-primary",
     component: Login,
-    layout: "/admin",
-  },
-  {
-    path: "/logout",
-    name: "Register",
-    icon: "ni ni-button-power text-primary",
-    component: Register,
-    layout: "/admin",
+    layout: "/auth",
   },
 ];
 export default routes;

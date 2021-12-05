@@ -134,7 +134,6 @@ const Slider = () => {
                         <Item>
                           <img
                             src={`http://localhost:5000/${item.image}`}
-                            height={"155vh"}
                             width={"100%"}
                           />
                           <div className=" mt-2">
