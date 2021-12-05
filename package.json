@@ -47,6 +47,7 @@
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@fortawesome/fontawesome-free": "5.15.3",
+    "axios": "^0.24.0",
     "bootstrap": "4.6.0",
     "bootstrap-icons": "^1.6.1",
     "chart.js": "2.9.4",
