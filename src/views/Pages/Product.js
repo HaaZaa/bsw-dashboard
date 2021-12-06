@@ -42,25 +42,33 @@ const Product = () => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [inputs, setInputs] = useState({});
+
   let handleChange = (props) => {
     let name = props.target.name;
-    let value = props.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    if (name === "Pimage" || name === "pPDF") {
+      let value = props.target.files[0];
+      setInputs((values) => ({ ...values, [name]: value }));
+    } else {
+      let value = props.target.value;
+      setInputs((values) => ({ ...values, [name]: value }));
+    }
   };
+
   let handleSubmit = (props) => {
     props.preventDefault();
+    const formdata = new FormData();
+    formdata.append("name", inputs.Pname);
+    formdata.append("image", inputs.Pimage);
+    formdata.append("stock", inputs.Pstock);
+    formdata.append("price", inputs.Pprize);
+    formdata.append("categoryId", inputs.CategoryID);
+    formdata.append("description", inputs.Pdescription);
+    formdata.append("mpn", inputs.PpartNo);
     axios
-      .post("/products/create", {
-        Pname: inputs.Pname,
-        Pdescription: inputs.Pdescription,
-        Pprize: inputs.Pprize,
-        CategoryID: inputs.CategoryID,
-        Pstock: inputs.Pstock,
-        Pimage: inputs.Pimage,
-      })
+      .post("/product/create", formdata)
       .then((response) => {
         fetchData();
-        if (response.data.msg === "Product Added Succussfully") {
+        if (response.data.msg === "Product created sucessfully!") {
           toast.success(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 2000,
@@ -75,7 +83,11 @@ const Product = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2000,
+          pauseOnHover: false,
+        });
       });
     toggle();
   };
@@ -166,7 +178,7 @@ const Product = () => {
               required
             ></Input>
             <Input
-              name="PpartNo."
+              name="PpartNo"
               type="number"
               placeholder="Enter Manufacture Part Number"
               onChange={handleChange}
@@ -186,7 +198,7 @@ const Product = () => {
               <Input
                 type="select"
                 defaultValue={"DEFAULT"}
-                name="parentCategory"
+                name="CategoryID"
                 id="parentCategory"
                 onChange={handleChange}
               >
@@ -208,13 +220,13 @@ const Product = () => {
               name="Pimage"
               type="file"
               placeholder="Upload product Image"
-              onChange={handlePChange}
+              onChange={handleChange}
               className="mt-2"
               required
             ></Input>
             <h5 className="mt-2">Upload product PDF file</h5>
             <Input
-              name="product PDF Details"
+              name="pPDF"
               type="file"
               onChange={handleChange}
               className="mt-2"
@@ -322,7 +334,6 @@ const Product = () => {
       <Container className="mt--7" fluid>
         <Row>
           <div className="col">
-            {console.log("products:", products)}
             <Card className="shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
