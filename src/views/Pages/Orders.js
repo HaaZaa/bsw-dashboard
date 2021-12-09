@@ -21,8 +21,9 @@ const Orders = () => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const result = await axios.get(`/orders`);
+    const result = await axios.get(`/order`);
     setOrders(result.data);
+    console.log("dattaaaaa");
   };
   return (
     <div>
@@ -50,384 +51,66 @@ const Orders = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1234</td>
-                        <td>234</td>
-                        <td>234567</td>
-                        <td>2345</td>
-                        <td>67767</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td className="text-center">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              className="btn-icon-only text-light"
-                              herf="#pablo"
-                              role="button"
-                              size="sm"
-                              color=""
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                In production
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                On its way
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                delivered
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                pending
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1234</td>
-                        <td>234</td>
-                        <td>234567</td>
-                        <td>2345</td>
-                        <td>67767</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td className="text-center">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              className="btn-icon-only text-light"
-                              herf="#pablo"
-                              role="button"
-                              size="sm"
-                              color=""
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                In production
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                On its way
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                delivered
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                pending
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1234</td>
-                        <td>234</td>
-                        <td>234567</td>
-                        <td>2345</td>
-                        <td>67767</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td className="text-center">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              className="btn-icon-only text-light"
-                              herf="#pablo"
-                              role="button"
-                              size="sm"
-                              color=""
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                In production
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                On its way
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                delivered
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                pending
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1234</td>
-                        <td>234</td>
-                        <td>234567</td>
-                        <td>2345</td>
-                        <td>67767</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td className="text-center">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              className="btn-icon-only text-light"
-                              herf="#pablo"
-                              role="button"
-                              size="sm"
-                              color=""
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                In production
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                On its way
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                delivered
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                pending
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1234</td>
-                        <td>234</td>
-                        <td>234567</td>
-                        <td>2345</td>
-                        <td>67767</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td className="text-center">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              className="btn-icon-only text-light"
-                              herf="#pablo"
-                              role="button"
-                              size="sm"
-                              color=""
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                In production
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                On its way
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                delivered
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                pending
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>1234</td>
-                        <td>234</td>
-                        <td>234567</td>
-                        <td>2345</td>
-                        <td>67767</td>
-                        <td>
-                          <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            pending
-                          </Badge>
-                        </td>
-                        <td className="text-center">
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              className="btn-icon-only text-light"
-                              herf="#pablo"
-                              role="button"
-                              size="sm"
-                              color=""
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                In production
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                On its way
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                delivered
-                              </DropdownItem>
-                              <DropdownItem
-                                herf="#pablo"
-                                onClick={(e) => e.preventDefault()}
-                              >
-                                pending
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </td>
-                      </tr>
-                      {/* {order.map((item) => {
+                      {order.map((item) => {
                         return (
-                          // <tr>
-                          //   <td>{item.userId}</td>
-                          //   <td>{item.totalPrice}</td>
-                          //   <td>{item.tax}</td>
-                          //   <td>{item.deliveryCharges}</td>
-                          //   <td>{item.grandTotal}</td>
-                          //   <td>
-                          //     <Badge color="" className="badge-dot mr-4">
-                          //       <i className="bg-warning" />
-                          //       pending
-                          //     </Badge>
-                          //   </td>
-                          //   <td className="text-center">
-                          //     <UncontrolledDropdown>
-                          //       <DropdownToggle
-                          //         className="btn-icon-only text-light"
-                          //         herf="#pablo"
-                          //         role="button"
-                          //         size="sm"
-                          //         color=""
-                          //         onClick={(e) => e.preventDefault()}
-                          //       >
-                          //         <i className="fas fa-ellipsis-v" />
-                          //       </DropdownToggle>
-                          //       <DropdownMenu
-                          //         className="dropdown-menu-arrow"
-                          //         right
-                          //       >
-                          //         <DropdownItem
-                          //           herf="#pablo"
-                          //           onClick={(e) => e.preventDefault()}
-                          //         >
-                          //           In production
-                          //         </DropdownItem>
-                          //         <DropdownItem
-                          //           herf="#pablo"
-                          //           onClick={(e) => e.preventDefault()}
-                          //         >
-                          //           On its way
-                          //         </DropdownItem>
-                          //         <DropdownItem
-                          //           herf="#pablo"
-                          //           onClick={(e) => e.preventDefault()}
-                          //         >
-                          //           delivered
-                          //         </DropdownItem>
-                          //         <DropdownItem
-                          //           herf="#pablo"
-                          //           onClick={(e) => e.preventDefault()}
-                          //         >
-                          //           pending
-                          //         </DropdownItem>
-                          //       </DropdownMenu>
-                          //     </UncontrolledDropdown>
-                          //   </td>
-                          // </tr>
+                          <tr>
+                            <td>{item.userId.name}</td>
+                            <td>{item.goodsTotal}</td>
+                            <td>{item.tax}</td>
+                            <td>{item.deliveryCharges}</td>
+                            <td>{item.grandTotal}</td>
+                            <td>
+                              <Badge color="" className="badge-dot mr-4">
+                                <i className="bg-warning" />
+                                pending
+                              </Badge>
+                            </td>
+                            <td className="text-center">
+                              <UncontrolledDropdown>
+                                <DropdownToggle
+                                  className="btn-icon-only text-light"
+                                  herf="#pablo"
+                                  role="button"
+                                  size="sm"
+                                  color=""
+                                  onClick={(e) => e.preventDefault()}
+                                >
+                                  <i className="fas fa-ellipsis-v" />
+                                </DropdownToggle>
+                                <DropdownMenu
+                                  className="dropdown-menu-arrow"
+                                  right
+                                >
+                                  <DropdownItem
+                                    herf="#pablo"
+                                    onClick={(e) => e.preventDefault()}
+                                  >
+                                    In production
+                                  </DropdownItem>
+                                  <DropdownItem
+                                    herf="#pablo"
+                                    onClick={(e) => e.preventDefault()}
+                                  >
+                                    On its way
+                                  </DropdownItem>
+                                  <DropdownItem
+                                    herf="#pablo"
+                                    onClick={(e) => e.preventDefault()}
+                                  >
+                                    delivered
+                                  </DropdownItem>
+                                  <DropdownItem
+                                    herf="#pablo"
+                                    onClick={(e) => e.preventDefault()}
+                                  >
+                                    pending
+                                  </DropdownItem>
+                                </DropdownMenu>
+                              </UncontrolledDropdown>
+                            </td>
+                          </tr>
                         );
-                      })} */}
+                      })}
                     </tbody>
                   </Table>
                 </div>

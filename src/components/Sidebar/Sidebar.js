@@ -6,7 +6,6 @@ import { PropTypes } from "prop-types";
 // reactstrap components
 import {
   Collapse,
-  UncontrolledDropdown,
   Form,
   Input,
   InputGroupAddon,

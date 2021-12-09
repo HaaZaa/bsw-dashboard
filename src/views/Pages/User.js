@@ -43,7 +43,11 @@ const User = () => {
                             <td>{item.name}</td>
                             <td>{item.email}</td>
                             <td>{item.address}</td>
-                            <td>{item.status}</td>
+                            {item.status === true ? (
+                              <td>Actice</td>
+                            ) : (
+                              <td>InActive</td>
+                            )}
                             <td>{item.role}</td>
                             <td>{item.phone_no}</td>
                           </tr>

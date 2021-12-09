@@ -4,19 +4,18 @@ import Product from "views/Pages/Product.js";
 import Orders from "views/Pages/Orders.js";
 import User from "views/Pages/User.js";
 import Slider from "views/Pages/Slider.js";
-import Logout from "views/Pages/Logout.js";
 import Login from "views/Pages/Loign";
 import AccountSetting from "views/Pages/AccountSetting";
-// import Tables from "views/examples/Tables.js";
+
 var routes = [
   {
     path: "/index",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
-
     component: Index,
     layout: "/admin",
   },
+
   {
     path: "/categories",
     name: "Categories",
@@ -66,6 +65,7 @@ var routes = [
   {
     path: "/logout",
     name: "Logout",
+
     icon: "ni ni-button-power text-primary",
     component: Login,
     layout: "/auth",

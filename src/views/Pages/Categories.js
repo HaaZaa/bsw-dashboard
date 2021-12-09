@@ -115,6 +115,7 @@ const Categories = () => {
     <div>
       <Header />
       <ToastContainer />
+      {/* Add New category Modal */}
       <Modal isOpen={modal}>
         <Form onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add New Category</ModalHeader>
@@ -157,7 +158,7 @@ const Categories = () => {
           </ModalFooter>
         </Form>
       </Modal>
-      {/* //? SC MODAL */}
+      {/*  Add new Sub-Category MODAL */}
 
       <Modal isOpen={scModal}>
         <Form onSubmit={handleScSubmit}>
