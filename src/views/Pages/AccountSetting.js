@@ -3,9 +3,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
   Container,
   Row,
   Col,
@@ -72,7 +69,7 @@ const Profile = () => {
                       </label>
                       <AvField
                         name="tax"
-                        type="text"
+                        type="number"
                         validate={{
                           required: {
                             value: true,
@@ -98,7 +95,7 @@ const Profile = () => {
                       </label>
                       <AvField
                         name="delivery"
-                        type="text"
+                        type="number"
                         validate={{
                           required: {
                             value: true,
@@ -183,29 +180,6 @@ const Profile = () => {
                             required: {
                               value: true,
                               errorMessage: "Please enter your E-mail",
-                            },
-                            pattern: {
-                              value: "^[A-Za-z0-9]+$",
-                            },
-
-                            maxLength: {
-                              value: 2,
-                              errorMessage: "Maximum Lenght sholud be 2-Digits",
-                            },
-                          }}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="8">
-                        <label className="form-control-label">Password</label>
-                        <AvField
-                          name="password"
-                          type="password"
-                          validate={{
-                            required: {
-                              value: true,
-                              errorMessage: "Please enter a password",
                             },
                             pattern: {
                               value: "^[A-Za-z0-9]+$",

@@ -14,6 +14,12 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
 } from "reactstrap";
 const Orders = () => {
   const [order, setOrders] = useState([]);
@@ -23,12 +29,54 @@ const Orders = () => {
   const fetchData = async () => {
     const result = await axios.get(`/order`);
     setOrders(result.data);
-    console.log("dattaaaaa");
+  };
+  ////////////////////////////////// Invoice Modal ////////////////////////////////
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  let handleSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .get(`/order`, {})
+      .then((response) => {
+        fetchData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    toggle();
   };
   return (
     <div>
       <Header />
       <Container className="mt--7" fluid>
+        <Modal isOpen={modal}>
+          <Form onSubmit={handleSubmit}>
+            <ModalHeader toggle={toggle}>ORDER INFORMATION</ModalHeader>
+            <ModalBody>
+              <label>User-Name :</label>
+              {/* {userId.name} */}
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                type="submit"
+                size="sm"
+                href="#H@aZa"
+                className="btn btn-dark"
+              >
+                Download
+              </Button>
+              <Button
+                type="submit"
+                size="sm"
+                href="#H@aZa"
+                color="secondany"
+                onClick={toggle}
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
         {/* Table */}
         <Row>
           <div className="col">
@@ -41,10 +89,11 @@ const Orders = () => {
                   <Table className="align-item-center table-flush" responsive>
                     <thead className="thead-light">
                       <tr>
-                        <th scope="col">User-ID</th>
-                        <th scope="col">Total-prize</th>
-                        <th scope="col">Tax</th>
-                        <th scope="col">Delivery=Charges</th>
+                        <th scope="col">Actions</th>
+                        <th scope="col">User-Name</th>
+                        <th scope="col">Phone No.</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Invoice No.</th>
                         <th scope="col">Grand-Total</th>
                         <th scope="col">Status</th>
                         <th scope="col">Set-Status</th>
@@ -54,10 +103,20 @@ const Orders = () => {
                       {order.map((item) => {
                         return (
                           <tr>
+                            <td>
+                              <Button
+                                className="btn btn-success"
+                                href="#H@za"
+                                onClick={toggle}
+                                size="sm"
+                              >
+                                View
+                              </Button>
+                            </td>
                             <td>{item.userId.name}</td>
-                            <td>{item.goodsTotal}</td>
-                            <td>{item.tax}</td>
-                            <td>{item.deliveryCharges}</td>
+                            <td>{item.phoneNo}</td>
+                            <td>{item.address}</td>
+                            <td>{item.invoiceNo}</td>
                             <td>{item.grandTotal}</td>
                             <td>
                               <Badge color="" className="badge-dot mr-4">

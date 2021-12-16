@@ -133,6 +133,7 @@ const Slider = () => {
                       return (
                         <Item>
                           <img
+                            alt=""
                             src={`http://localhost:5000/${item.image}`}
                             width={"100%"}
                           />

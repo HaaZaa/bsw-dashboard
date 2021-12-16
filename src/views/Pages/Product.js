@@ -14,11 +14,15 @@ import {
   ModalBody,
   Input,
   ModalFooter,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  FormGroup,
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { AvForm, AvField } from "availity-reactstrap-validation";
 const Product = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -151,65 +155,156 @@ const Product = () => {
       <Header />
       {/*///////////////////////////////// MODAL Add Product /////////////////////////////////////*/}
       <Modal isOpen={modal}>
-        <Form onSubmit={handleSubmit}>
+        <AvForm onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add New Product</ModalHeader>
           <ModalBody>
-            <Input
+            <AvField
               name="Pname"
               type="text"
               placeholder="Enter Product Name"
               onChange={handleChange}
-              required
-            ></Input>
-            <Input
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please Product your name",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                },
+
+                minLength: {
+                  value: 4,
+                  errorMessage: "Your name must be between 4 and 16 characters",
+                },
+                maxLength: {
+                  value: 16,
+                  errorMessage: "Your name must be between 4 and 16 characters",
+                },
+              }}
+            />
+            <AvField
               name="Pdescription"
               type="textarea"
               placeholder="Enter Product Description"
               onChange={handleChange}
               className="mt-2"
-              required
-            ></Input>
-            <Input
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter  Description",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                },
+
+                minLength: {
+                  value: 6,
+                  errorMessage: "Your name must be between 6 and 16 characters",
+                },
+                maxLength: {
+                  value: 16,
+                  errorMessage: "Your name must be between 6 and 16 characters",
+                },
+              }}
+            />
+            <AvField
               name="Pprize"
               type="number"
               placeholder="Enter Product Price"
               onChange={handleChange}
               className="mt-2"
-              required
-            ></Input>
-            <Input
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter Price",
+                },
+                pattern: {
+                  value: "^[0-9]+$",
+                  errorMessage: "Tax must be composed only with numbers",
+                },
+                minLength: {
+                  value: 2,
+                  errorMessage: "Product Price must be atleast 2 digits",
+                },
+
+                maxLength: {
+                  value: 2,
+                  errorMessage: "Maximum Lenght sholud be 2-Digits",
+                },
+              }}
+            />
+            <AvField
               name="PpartNo"
-              type="number"
+              type="text"
               placeholder="Enter Manufacture Part Number"
               onChange={handleChange}
               className="mt-2"
-              required
-            ></Input>
-            <Input
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter Manufacture Part Number",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                  errorMessage:
+                    "Tax must be composed only with Characters and numbers",
+                },
+
+                minLength: {
+                  value: 3,
+                  errorMessage:
+                    "  Manufacture Part Numbe must be atleast 3 digits",
+                },
+
+                maxLength: {
+                  value: 5,
+                  errorMessage: "Maximum Lenght sholud be 5-Digits",
+                },
+              }}
+            />
+            <AvField
               name="Pstock"
               type="number"
               placeholder="Enter Amount of Product in stock "
               onChange={handleChange}
               className="mt-2"
-              required
-            ></Input>
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter Product in stock",
+                },
+                pattern: {
+                  value: "^[0-9]+$",
+                  errorMessage: "Tax must be composed only with numbers",
+                },
+                minLength: {
+                  value: 1,
+                  errorMessage: "Minimum Lenght sholud be atleast 1-Digits",
+                },
 
-            <div className="mt-2">
-              <Input
-                type="select"
-                defaultValue={"DEFAULT"}
-                name="CategoryID"
-                id="parentCategory"
-                onChange={handleChange}
-              >
-                <option value="DEFAULT" disabled>
-                  Choose a Category ...
-                </option>
-                {subCategory.map((item) => {
-                  return <option value={item._id}>{item.name}</option>;
-                })}
-              </Input>
-            </div>
+                maxLength: {
+                  value: 4,
+                  errorMessage: "Maximum Lenght sholud be 4-Digits",
+                },
+              }}
+            />
+
+            <Input
+              type="select"
+              className="mt-2"
+              defaultValue={"DEFAULT"}
+              name="CategoryID"
+              id="parentCategory"
+              onChange={handleChange}
+            >
+              <option value="DEFAULT" disabled>
+                Choose a Category ...
+              </option>
+              {subCategory.map((item) => {
+                return <option value={item._id}>{item.name}</option>;
+              })}
+            </Input>
+
             <label>
               Button to Feature product :{" "}
               <input type="checkbox" name="Featured" onChange={handleChange} />
@@ -241,14 +336,14 @@ const Product = () => {
               Cancel
             </Button>
           </ModalFooter>
-        </Form>
+        </AvForm>
       </Modal>
       {/*///////////////////////////////// MODAL Edit Product /////////////////////////////////////*/}
       <Modal isOpen={Pmodal}>
-        <Form onSubmit={handlePSubmit}>
+        <AvForm onSubmit={handlePSubmit}>
           <ModalHeader toggle={Ptoggle}>Edit Product Details</ModalHeader>
           <ModalBody>
-            <Input
+            <AvField
               name="Pname"
               type="text"
               value={modalData.pname}
@@ -259,48 +354,149 @@ const Product = () => {
                 });
               }}
               placeholder="Enter Product Name"
-              required
-            ></Input>
-            <Input
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter Product name",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                },
+
+                minLength: {
+                  value: 4,
+                  errorMessage: "Your name must be between 4 and 16 characters",
+                },
+                maxLength: {
+                  value: 16,
+                  errorMessage: "Your name must be between 4 and 16 characters",
+                },
+              }}
+            />
+            <AvField
               name="Pdescription"
               type="textarea"
               placeholder="Enter Product Description"
               onChange={handlePChange}
               className="mt-2"
-              required
-            ></Input>
-            <Input
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter  Description",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                },
+
+                minLength: {
+                  value: 6,
+                  errorMessage:
+                    "Product Description must be between 6 and 16 characters",
+                },
+                maxLength: {
+                  value: 16,
+                  errorMessage:
+                    "Product Description must be between 6 and 16 characters",
+                },
+              }}
+            />
+            <AvField
               name="Pprize"
               type="number"
               placeholder="Enter Product Price"
               onChange={handlePChange}
               className="mt-2"
-              required
-            ></Input>
-            <Input
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter Price",
+                },
+                pattern: {
+                  value: "^[0-9]+$",
+                  errorMessage: "Tax must be composed only with numbers",
+                },
+                minLength: {
+                  value: 2,
+                  errorMessage: "Product Price must be atleast 2 digits",
+                },
+
+                maxLength: {
+                  value: 2,
+                  errorMessage: "Maximum Lenght sholud be 2-Digits",
+                },
+              }}
+            />
+            <AvField
+              name="_PpartNo"
+              type="text"
+              placeholder="Enter Manufacture Part Number"
+              onChange={handleChange}
+              className="mt-2"
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter Manufacture Part Number",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                  errorMessage:
+                    "Tax must be composed only with Characters and numbers",
+                },
+
+                minLength: {
+                  value: 3,
+                  errorMessage:
+                    "  Manufacture Part Numbe must be atleast 3 digits",
+                },
+
+                maxLength: {
+                  value: 5,
+                  errorMessage: "Maximum Lenght sholud be 5-Digits",
+                },
+              }}
+            />
+            <AvField
               name="Pstock"
               type="number"
               placeholder="Enter Amount of Product in stock "
               onChange={handlePChange}
               className="mt-2"
-              required
-            ></Input>
-            <div className="mt-2">
-              <Input
-                type="select"
-                defaultValue={"DEFAULT"}
-                name="parentCategory"
-                id="parentCategory"
-                onChange={handlePChange}
-              >
-                <option value="DEFAULT" disabled>
-                  Choose a Category ...
-                </option>
-                {subCategory.map((item) => {
-                  return <option value={item._id}>{item.name}</option>;
-                })}
-              </Input>
-            </div>
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter Product in stock",
+                },
+                pattern: {
+                  value: "^[0-9]+$",
+                  errorMessage: "Tax must be composed only with numbers",
+                },
+                minLength: {
+                  value: 1,
+                  errorMessage: "Minimum Lenght sholud be atleast 1-Digits",
+                },
+
+                maxLength: {
+                  value: 4,
+                  errorMessage: "Maximum Lenght sholud be 4-Digits",
+                },
+              }}
+            />
+
+            <Input
+              className="mt-2"
+              type="select"
+              defaultValue={"DEFAULT"}
+              name="parentCategory"
+              id="parentCategory"
+              onChange={handlePChange}
+            >
+              <option value="DEFAULT" disabled>
+                Choose a Category ...
+              </option>
+              {subCategory.map((item) => {
+                return <option value={item._id}>{item.name}</option>;
+              })}
+            </Input>
 
             <h5 className="mt-2">Upload product image</h5>
             <Input
@@ -328,7 +524,7 @@ const Product = () => {
               Cancel
             </Button>
           </ModalHeader>
-        </Form>
+        </AvForm>
       </Modal>
       {/*///////////////////////////////// Product Table /////////////////////////////////////*/}
       <Container className="mt--7" fluid>
@@ -340,7 +536,24 @@ const Product = () => {
                   <div className="col">
                     <h3 className="mt-0">Products details</h3>
                   </div>
+
                   <div className="col text-right">
+                    <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                      <FormGroup className="mb-0">
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fas fa-search" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            placeholder="Search"
+                            type="text"
+                            // style={(color = "black")}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Form>
                     <Button
                       color="btn btn-info"
                       herf="pablo"
@@ -371,15 +584,16 @@ const Product = () => {
                         <tr>
                           <td>
                             <img
-                              src={`http://localhost:5000/${item.image}`}
+                              alt=""
+                              src={`http://localhost:5000/${item?.image}`}
                               height={"30vh"}
                               width={"25%"}
                             />
                           </td>
-                          <td>{item.name}</td>
-                          <td>{item.categoryId.name}</td>
-                          <td>{item.stock}</td>
-                          <td>{item.price}</td>
+                          <td>{item?.name}</td>
+                          <td>{item?.categoryId?.name}</td>
+                          <td>{item?.stock}</td>
+                          <td>{item?.price}</td>
 
                           <td>
                             <Button
@@ -401,6 +615,23 @@ const Product = () => {
                               }}
                             >
                               Edit
+                            </Button>
+                            <Button
+                              className="btn btn-danger"
+                              size="sm"
+                              onClick={() => {
+                                axios
+                                  .delete(`/product/${item._id}/delete`)
+                                  .then((responce) => {
+                                    fetchData();
+                                    console.log(responce);
+                                  })
+                                  .catch((err) => {
+                                    console.log(err);
+                                  });
+                              }}
+                            >
+                              Delete
                             </Button>
                           </td>
                         </tr>

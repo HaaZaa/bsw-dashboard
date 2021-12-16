@@ -14,10 +14,10 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-  Form,
 } from "reactstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AvForm, AvField } from "availity-reactstrap-validation";
 
 const Categories = () => {
   const [category, setCategory] = useState([]);
@@ -117,16 +117,26 @@ const Categories = () => {
       <ToastContainer />
       {/* Add New category Modal */}
       <Modal isOpen={modal}>
-        <Form onSubmit={handleSubmit}>
+        <AvForm onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add New Category</ModalHeader>
           <ModalBody>
-            <Input
-              type="text"
+            <AvField
               name="name"
-              required
+              type="text"
               onChange={handleChange}
               placeholder="Enter Category Name..."
-            ></Input>
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter a Category",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                  errorMessage:
+                    "Tax must be composed  with Charaters & numbers",
+                },
+              }}
+            />
             <div className="mt-2">
               <Input
                 type="select"
@@ -156,21 +166,31 @@ const Categories = () => {
               Cancel
             </Button>
           </ModalFooter>
-        </Form>
+        </AvForm>
       </Modal>
       {/*  Add new Sub-Category MODAL */}
 
       <Modal isOpen={scModal}>
-        <Form onSubmit={handleScSubmit}>
+        <AvForm onSubmit={handleScSubmit}>
           <ModalHeader toggle={scToggle}>Add New Category</ModalHeader>
           <ModalBody>
-            <Input
-              type="text"
+            <AvField
               name="name"
-              required
+              type="text"
               onChange={handleScChange}
               placeholder="Enter Sub-Category Name..."
-            ></Input>
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter a Sub-Category",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                  errorMessage:
+                    "Tax must be composed  with Charaters & numbers",
+                },
+              }}
+            />
             <div className="mt-2">
               <Input
                 type="select"
@@ -196,7 +216,7 @@ const Categories = () => {
               Cancel
             </Button>
           </ModalFooter>
-        </Form>
+        </AvForm>
       </Modal>
 
       <Container className="mt--9">
@@ -279,7 +299,7 @@ const Categories = () => {
                   <div className="col text-right">
                     <Button
                       color="btn btn-info"
-                      href="#pablo"
+                      href="#H@aZa"
                       onClick={scToggle}
                       size="sm"
                     >

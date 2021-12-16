@@ -1,5 +1,3 @@
-
-
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -37,10 +35,10 @@ const AdminNavbar = (props) => {
               </InputGroup>
             </FormGroup>
           </Form>
-          <Nav className="align-items-center d-none d-md-flex" navbar>
-            {/* <UncontrolledDropdown nav>
+          {/* <Nav className="align-items-center d-none d-md-flex" navbar> */}
+          {/* <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav> */}
-                {/* <Media className="align-items-center">
+          {/* <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
@@ -56,8 +54,8 @@ const AdminNavbar = (props) => {
                     </span>
                   </Media>
                 </Media> */}
-              {/* </DropdownToggle> */}
-              {/* <DropdownMenu className="dropdown-menu-arrow" right>
+          {/* </DropdownToggle> */}
+          {/* <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Welcome!</h6>
                 </DropdownItem>
@@ -83,8 +81,8 @@ const AdminNavbar = (props) => {
                   <span>Logout</span>
                 </DropdownItem>
               </DropdownMenu> */}
-            {/* </UncontrolledDropdown> */}
-          </Nav>
+          {/* </UncontrolledDropdown> */}
+          {/* </Nav> */}
         </Container>
       </Navbar>
     </>
