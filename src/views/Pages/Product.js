@@ -9,27 +9,23 @@ import {
   Container,
   CardBody,
   Modal,
-  Form,
   ModalHeader,
   ModalBody,
   Input,
   ModalFooter,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  FormGroup,
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 const Product = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({});
   useEffect(() => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const result = await axios.get(`/product`);
+    const result = await axios.get(`/product?page=1`);
+
     setProducts(result.data);
   };
   const [subCategory, setSubCategory] = useState([]);
@@ -63,6 +59,7 @@ const Product = () => {
     const formdata = new FormData();
     formdata.append("name", inputs.Pname);
     formdata.append("image", inputs.Pimage);
+    formdata.append("pdf", inputs.pPDF);
     formdata.append("stock", inputs.Pstock);
     formdata.append("price", inputs.Pprize);
     formdata.append("categoryId", inputs.CategoryID);
@@ -121,7 +118,7 @@ const Product = () => {
   let handlePSubmit = (props) => {
     props.preventDefault();
     axios
-      .post("/products/create", {
+      .post("/product/update", {
         Pname: Pinputs.Pname,
         Pdescription: Pinputs.Pdescription,
         Pprize: Pinputs.Pprize,
@@ -166,7 +163,7 @@ const Product = () => {
               validate={{
                 required: {
                   value: true,
-                  errorMessage: "Please Product your name",
+                  errorMessage: "Please enter Product name",
                 },
                 pattern: {
                   value: "^[A-Za-z0-9]+$",
@@ -318,6 +315,7 @@ const Product = () => {
               onChange={handleChange}
               className="mt-2"
               required
+              multiple
             ></Input>
             <h5 className="mt-2">Upload product PDF file</h5>
             <Input
@@ -517,10 +515,10 @@ const Product = () => {
             ></Input>
           </ModalBody>
           <ModalHeader>
-            <Button className="btn btn-success" type="submit">
+            <Button size="sm" className="btn btn-success" type="submit">
               Submit
             </Button>
-            <Button color="secondary" onClick={Ptoggle} type="button">
+            <Button size="sm" color="secondary" onClick={Ptoggle} type="button">
               Cancel
             </Button>
           </ModalHeader>
@@ -538,25 +536,9 @@ const Product = () => {
                   </div>
 
                   <div className="col text-right">
-                    <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                      <FormGroup className="mb-0">
-                        <InputGroup className="input-group-alternative">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="fas fa-search" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input
-                            placeholder="Search"
-                            type="text"
-                            // style={(color = "black")}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Form>
                     <Button
                       color="btn btn-info"
-                      herf="pablo"
+                      herf="#H@za"
                       size="sm"
                       onClick={toggle}
                     >
@@ -572,26 +554,29 @@ const Product = () => {
                     <tr>
                       <th scope="col">product Image</th>
                       <th scope="col">product name</th>
-                      <th scope="col">Category Name</th>
+                      <th scope="col">Manufactures Part #</th>
                       <th scope="col">Stock</th>
                       <th scope="col">Price</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {products.map((item) => {
+                    {products?.products?.map((item) => {
                       return (
                         <tr>
                           <td>
                             <img
-                              alt=""
                               src={`http://localhost:5000/${item?.image}`}
-                              height={"30vh"}
-                              width={"25%"}
+                              width={"50px"}
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src =
+                                  "http://localhost:5000/uploads/images/default.png";
+                              }}
                             />
                           </td>
                           <td>{item?.name}</td>
-                          <td>{item?.categoryId?.name}</td>
+                          <td>{item?.mpn}</td>
                           <td>{item?.stock}</td>
                           <td>{item?.price}</td>
 
@@ -621,10 +606,10 @@ const Product = () => {
                               size="sm"
                               onClick={() => {
                                 axios
-                                  .delete(`/product/${item._id}/delete`)
+                                  .put(`/product/${item._id}/delete`)
                                   .then((responce) => {
                                     fetchData();
-                                    console.log(responce);
+                                    console.log(responce.data);
                                   })
                                   .catch((err) => {
                                     console.log(err);

@@ -11,7 +11,7 @@ var routes = [
   {
     path: "/index",
     name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
+    icon: "ni ni-tv-2 text-primary font-weight-900",
     component: Index,
     layout: "/admin",
   },
@@ -19,7 +19,7 @@ var routes = [
   {
     path: "/categories",
     name: "Categories",
-    icon: "ni ni-align-center text-primary",
+    icon: "ni ni-align-center text-warning font-weight-900",
     component: Categories,
     layout: "/admin",
   },
@@ -27,7 +27,7 @@ var routes = [
   {
     path: "/product",
     name: "Products",
-    icon: "ni ni-basket text-primary",
+    icon: "ni ni-basket text-success font-weight-900",
     component: Product,
     layout: "/admin",
   },
@@ -35,7 +35,7 @@ var routes = [
   {
     path: "/orders",
     name: "Orders",
-    icon: "ni ni-bullet-list-67 text-primary",
+    icon: "ni ni-cart text-muted font-weight-900",
     component: Orders,
     layout: "/admin",
   },
@@ -43,14 +43,14 @@ var routes = [
   {
     path: "/user",
     name: "Users",
-    icon: "ni ni-circle-08 text-primary",
+    icon: "ni ni-circle-08 text-danger font-weight-900",
     component: User,
     layout: "/admin",
   },
   {
     path: "/slider",
     name: "Slider",
-    icon: "ni ni-ungroup text-primary",
+    icon: "ni ni-ungroup text-dark font-weight-900",
     component: Slider,
     layout: "/admin",
   },
@@ -58,7 +58,7 @@ var routes = [
   {
     path: "/AccountSetting",
     name: "Account Setting",
-    icon: "ni ni-button-power text-primary font-weight-900",
+    icon: "ni ni-settings text-grey-800 font-weight-400",
     component: AccountSetting,
     layout: "/admin",
   },
@@ -66,7 +66,7 @@ var routes = [
     path: "/logout",
     name: "Logout",
 
-    icon: "ni ni-button-power text-primary",
+    icon: "ni ni-button-power text-dark font-weight-900",
     component: Login,
     layout: "/auth",
   },

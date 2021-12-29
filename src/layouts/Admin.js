@@ -8,7 +8,8 @@ import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
 import routes from "routes.js";
-
+import { ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Admin = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
@@ -49,6 +50,12 @@ const Admin = (props) => {
 
   return (
     <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        transition={Flip}
+      />
       <Sidebar
         {...props}
         routes={routes}

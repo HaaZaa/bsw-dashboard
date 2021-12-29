@@ -30,24 +30,6 @@ const Login = () => {
                   }
                 />
               </span>
-
-              {/* <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button> */}
             </div>
             <div className="text-muted text-center mt-2 ">
               <span>BSW Engineering</span>
@@ -86,19 +68,7 @@ const Login = () => {
                   />
                 </InputGroup>
               </FormGroup>
-              {/* <div className="custom-control custom-control-alternative custom-checkbox">
-                <input
-                  className="custom-control-input"
-                  id=" customCheckLogin"
-                  type="checkbox"
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor=" customCheckLogin"
-                >
-                  <span className="text-muted">Remember me</span>
-                </label>
-              </div> */}
+
               <div className="text-center">
                 <Button className="my-4" color="primary" type="button">
                   Sign in
@@ -116,15 +86,6 @@ const Login = () => {
             >
               <small>Forgot password?</small>
             </a>
-          </Col>
-          <Col className="text-right" xs="6">
-            {/* <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <small>Create new account</small>
-            </a> */}
           </Col>
         </Row>
       </Col>

@@ -85,7 +85,7 @@ const Header = () => {
                           Sales
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">
-                          {stats.sales_day}$
+                          ${stats.sales_day}
                         </span>
                       </div>
                       <Col className="col-auto">

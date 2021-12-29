@@ -1,9 +1,12 @@
 import Header from "components/Headers/Header.js";
+import Pagination from "components/Pagination/Pagination";
+
 import React, { useEffect, useState } from "react";
 import axios from "../../axios.js";
 import {
   Button,
   CardHeader,
+  CardFooter,
   Card,
   Table,
   Container,
@@ -73,6 +76,49 @@ const Categories = () => {
       });
     toggle();
   };
+  // edit category modal
+  const [editCategory, setEditCategory] = useState(false);
+  const [editModal, setEditModal] = useState({
+    name: "",
+    Category: "",
+  });
+  const EditToggle = () => {
+    setEditCategory(!editCategory);
+  };
+  const [Cinputs, setCInputs] = useState({});
+  let handleCategoryEdit = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
+    setCInputs((values) => ({ ...values, [name]: value }));
+  };
+  let handleEditSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .put(`/category/${editModal._id}/update`, {
+        name: editModal.name,
+        Category: Cinputs.Category,
+      })
+      .then((response) => {
+        fetchData();
+        if (response.data.msg === "Category Updated") {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+        EditToggle();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // Sub-Category  Modal
   const [scModal, setSCModal] = useState(false);
   const scToggle = () => setSCModal(!scModal);
@@ -110,6 +156,49 @@ const Categories = () => {
       });
     scToggle();
   };
+  //Edit sub-category modal
+  const [editScModal, setEditScModal] = useState(false);
+  const [dataScModal, setDataScModal] = useState({
+    name: "",
+    sCategory: "",
+  });
+  const ScEditToggle = () => {
+    setEditScModal(!editScModal);
+  };
+  const [scEditModal, setscEditModal] = useState({});
+  let handleEditScChange = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
+    setscEditModal((values) => ({ ...values, [name]: value }));
+  };
+  let handleEditScSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .put(`/category/subcategory/${dataScModal._id}/update`, {
+        name: dataScModal.Sname,
+        parentCategory: scEditModal.parentCategory,
+      })
+      .then((response) => {
+        fetchSubCatData();
+        if (response.data.msg === "Category Updated") {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    ScEditToggle();
+  };
 
   return (
     <div>
@@ -138,6 +227,7 @@ const Categories = () => {
               }}
             />
             <div className="mt-2">
+              {console.log(editModal)}
               <Input
                 type="select"
                 name="parentCategory"
@@ -163,6 +253,70 @@ const Categories = () => {
               Submit
             </Button>
             <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </AvForm>
+      </Modal>
+      {/* Edit category modal */}
+      <Modal isOpen={editCategory}>
+        <AvForm onSubmit={handleEditSubmit}>
+          <ModalHeader toggle={EditToggle}>Edit Category</ModalHeader>
+          <ModalBody>
+            <AvField
+              name="name"
+              type="text"
+              onChange={(e) => {
+                setEditModal((prev) => {
+                  prev.name = e.target.value;
+                  return { ...prev };
+                });
+              }}
+              placeholder="Enter Category Name..."
+              value={editModal.name}
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter a Category",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                  errorMessage:
+                    "Tax must be composed  with Charaters & numbers",
+                },
+              }}
+            />
+            <div className="mt-2">
+              <Input
+                type="select"
+                name="Category"
+                id="parentCategoryEdit"
+                defaultValue={editModal.parentCategory}
+                onChange={handleCategoryEdit}
+                required
+              >
+                <option value="DEFAULT" disabled>
+                  Choose a Category ...
+                </option>
+                <option value={10001}>
+                  Electronics Components, Power & Connectors
+                </option>
+                <option value={10002}>Electrical, Automation & Cables</option>
+                <option value={10003}>Mechanical Products & Tools</option>
+                <option value={10004}>IT, Test & Safety Equipment</option>
+              </Input>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button size="sm" className="btn btn-success" type="submit">
+              Update
+            </Button>
+            <Button
+              size="sm"
+              color="secondary"
+              onClick={EditToggle}
+              type="button"
+            >
               Cancel
             </Button>
           </ModalFooter>
@@ -218,7 +372,62 @@ const Categories = () => {
           </ModalFooter>
         </AvForm>
       </Modal>
-
+      {/* Edit sub-category modal */}
+      <Modal isOpen={editScModal}>
+        <AvForm onSubmit={handleEditScSubmit}>
+          <ModalHeader toggle={ScEditToggle}>Edit Sub-Category</ModalHeader>
+          <ModalBody>
+            <AvField
+              name="scname"
+              type="text"
+              onChange={(e) => {
+                setDataScModal((prev) => {
+                  prev.Sname = e.target.value;
+                  return { ...prev };
+                });
+              }}
+              placeholder="Enter Sub-Category Name..."
+              value={dataScModal.Sname}
+              validate={{
+                required: {
+                  value: true,
+                  errorMessage: "Please enter a Sub-Category",
+                },
+                pattern: {
+                  value: "^[A-Za-z0-9]+$",
+                  errorMessage:
+                    "Tax must be composed  with Charaters & numbers",
+                },
+              }}
+            />
+            <div className="mt-2">
+              <Input
+                type="select"
+                defaultValue={dataScModal.parentCategory}
+                name="parentCategory"
+                id="parentCategory"
+                onChange={handleEditScChange}
+              >
+                <option value="DEFAULT" disabled>
+                  Choose a Category ...
+                </option>
+                {category.map((item, index) => {
+                  return <option value={item._id}>{item.name}</option>;
+                })}
+              </Input>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button className="btn btn-success" type="submit" size="sm">
+              Submit
+            </Button>
+            <Button color="secondary" onClick={ScEditToggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </AvForm>
+      </Modal>
+      {/* category table */}
       <Container className="mt--9">
         <Row>
           <Col xl="4" className="mt-5">
@@ -255,15 +464,18 @@ const Categories = () => {
                         <td>
                           <Button
                             className="btn btn-success"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            href="#H@za"
+                            onClick={() => {
+                              setEditModal(item);
+                              EditToggle();
+                            }}
                             size="sm"
                           >
                             Edit
                           </Button>
 
                           <Button
-                            className="btn btn-danger"
+                            className="btn btn-danger "
                             href="#pablo"
                             onClick={() => {
                               axios
@@ -288,7 +500,7 @@ const Categories = () => {
               </Table>
             </Card>
           </Col>
-
+          {/* Sub-category table */}
           <Col className="mt-5 mb-xl-0" xl="7">
             <Card className="shadow">
               <CardHeader className="border-0">
@@ -320,13 +532,16 @@ const Categories = () => {
                   {subCategory.map((item) => {
                     return (
                       <tr>
-                        <td>{item.name}</td>
-                        <td>{item.parentCategory.name}</td>
+                        <td>{item?.name}</td>
+                        <td>{item?.parentCategory?.name}</td>
                         <td>
                           <Button
                             className="btn btn-success"
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={() => {
+                              setDataScModal(item);
+                              ScEditToggle();
+                            }}
                             size="sm"
                           >
                             Edit
@@ -357,6 +572,9 @@ const Categories = () => {
                   <tr></tr>
                 </tbody>
               </Table>
+              <CardFooter>
+                <Pagination />
+              </CardFooter>
             </Card>
           </Col>
         </Row>
