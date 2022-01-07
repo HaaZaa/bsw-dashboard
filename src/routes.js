@@ -6,6 +6,7 @@ import User from "views/Pages/User.js";
 import Slider from "views/Pages/Slider.js";
 import Login from "views/Pages/Loign";
 import AccountSetting from "views/Pages/AccountSetting";
+import Logout from "views/Pages/Logout";
 
 var routes = [
   {
@@ -67,6 +68,11 @@ var routes = [
     name: "Logout",
 
     icon: "ni ni-button-power text-dark font-weight-900",
+    component: Logout,
+    layout: "/admin",
+  },
+  {
+    path: "/login",
     component: Login,
     layout: "/auth",
   },
