@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -17,7 +17,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
+import axios from "../axios.js";
 // core components
 import {
   chartOptions,
@@ -31,7 +31,19 @@ import Header from "components/Headers/Header.js";
 const Index = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
-
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const result = await axios.get(`/dashboard/graph`);
+    console.log(result);
+    // ! Orders chart data
+    chartExample2.data.labels = result.data.orders_month.month;
+    chartExample2.data.datasets[0].data = result.data.orders_month.count;
+    // ! Sales Chart data
+    chartExample1.data.labels = result.data.sales_month.month;
+    chartExample1.data.datasets[0].data = result.data.sales_month.sales;
+  };
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
@@ -57,42 +69,13 @@ const Index = (props) => {
                     </h6>
                     <h2 className="text-white mb-0">Sales value</h2>
                   </div>
-                  <div className="col">
-                    <Nav className="justify-content-end" pills>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 1,
-                          })}
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 1)}
-                        >
-                          <span className="d-none d-md-block">Month</span>
-                          <span className="d-md-none">M</span>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 2,
-                          })}
-                          data-toggle="tab"
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 2)}
-                        >
-                          <span className="d-none d-md-block">Week</span>
-                          <span className="d-md-none">W</span>
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
-                  </div>
                 </Row>
               </CardHeader>
               <CardBody>
                 {/* Chart */}
                 <div className="chart">
                   <Line
-                    data={chartExample1[chartExample1Data]}
+                    data={chartExample1.data}
                     options={chartExample1.options}
                     getDatasetAtEvent={(e) => console.log(e)}
                   />

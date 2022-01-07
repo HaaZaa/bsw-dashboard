@@ -68,7 +68,7 @@ const Header = () => {
                       </Col>
                     </Row>
                     <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-nowrap">Since yesterday</span>
+                      <span className="text-nowrap">Today</span>
                     </p>
                   </CardBody>
                 </Card>
@@ -95,7 +95,7 @@ const Header = () => {
                       </Col>
                     </Row>
                     <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-nowrap">Since yesterday</span>
+                      <span className="text-nowrap">Today</span>
                     </p>
                   </CardBody>
                 </Card>

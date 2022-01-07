@@ -52,6 +52,17 @@ const Orders = () => {
     toggle();
   };
 
+  const onPageNext = () => {
+    axios.get(`/orderr?page=${order?.next_page}`).then((res) => {
+      setOrder(res.data);
+    });
+  };
+  const onPagePrevious = () => {
+    axios.get(`/orderr?page=${order?.previous_page}`).then((res) => {
+      setOrder(res.data);
+    });
+  };
+
   return (
     <div>
       <Header />
@@ -97,15 +108,17 @@ const Orders = () => {
                   <th scope="col">Quantity</th>
                   <th scope="col">Total</th>
                 </tr>
-
+                {/* {console.log("order: ", selected)} */}
                 <tbody>
-                  {/* {order?.orders?.cartId?.product?.map((item) => {
+                  {selected?.cartId?.product?.map((item) => {
+                    // console.log("item:", item);
                     return (
-                      <tr>
-                        <td> {item?.price}</td>
-                      </tr>
+                      <>
+                        <td>{item.productId.name}</td>
+                        <td>{item.quatity}</td>
+                      </>
                     );
-                  })} */}
+                  })}
                 </tbody>
               </Table>
               <Row className="mt-5">
@@ -144,24 +157,16 @@ const Orders = () => {
               </Row>
             </ModalBody>
             <ModalFooter>
-              <Button
-                size="sm"
-                href="#H@aZa"
-                className="btn btn-dark"
-                onClick={() => {
-                  axios
-                    .get(`/order/invoice/${selected.cartId.orderId}`)
-                    .then((response) => {
-                      fetchData();
-                      console.log(response);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }}
-              >
-                Download
-              </Button>
+              <div>
+                <a
+                  href={`http://localhost:5000/api/order/invoice/${selected?._id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Download
+                </a>
+              </div>
+
               <Button
                 type="submit"
                 size="sm"
@@ -213,12 +218,51 @@ const Orders = () => {
                                 View
                               </Button>
                             </td>
-                            <td>{item?.userId?.name}</td>
+                            {console.log(item)}
+                            <td>{item?.name}</td>
                             <td>{item?.phoneNo}</td>
-                            <td>{item?.address}</td>
+                            <td>
+                              {item?.address.substring(0, 25)}
+                              {item?.address.length > 25 && "..."}
+                            </td>
                             <td>{item?.invoiceNo}</td>
                             <td>{item?.grandTotal}</td>
-                            <td>{item?.status}</td>
+                            {item.status === 0 ? (
+                              <td>
+                                <Badge color="" className="badge-dot mr-4">
+                                  <i className="bg-primary" />
+                                  pending
+                                </Badge>
+                              </td>
+                            ) : item.status === 1 ? (
+                              <td>
+                                <Badge color="" className="badge-dot mr-4">
+                                  <i className="bg-info" />
+                                  Processing
+                                </Badge>
+                              </td>
+                            ) : item.status === 2 ? (
+                              <td>
+                                <Badge color="" className="badge-dot mr-4">
+                                  <i className="bg-warning" />
+                                  On its way
+                                </Badge>
+                              </td>
+                            ) : item.status === 3 ? (
+                              <td>
+                                <Badge color="" className="badge-dot mr-4">
+                                  <i className="bg-success" />
+                                  Delivered
+                                </Badge>
+                              </td>
+                            ) : item.status === 4 ? (
+                              <td>
+                                <Badge color="" className="badge-dot mr-4">
+                                  <i className="bg-danger" />
+                                  Cancel Order
+                                </Badge>
+                              </td>
+                            ) : null}
                             <td className="text-center">
                               <UncontrolledDropdown>
                                 <DropdownToggle
@@ -237,31 +281,75 @@ const Orders = () => {
                                 >
                                   <DropdownItem
                                     herf="#H@za"
-                                    onClick={(e) => e.preventDefault()}
-                                    defaultValue={0}
+                                    onClick={() =>
+                                      axios
+                                        .put(
+                                          `/order/status/${item._id}?status=1`
+                                        )
+                                        .then((response) => {
+                                          fetchData();
+                                          console.log(response);
+                                        })
+                                        .catch((err) => {
+                                          console.log(err);
+                                        })
+                                    }
                                   >
-                                    In production
+                                    Processing
                                   </DropdownItem>
                                   <DropdownItem
                                     herf="#H@za"
-                                    onClick={(e) => e.preventDefault()}
-                                    defaultValue={1}
+                                    onClick={() =>
+                                      axios
+                                        .put(
+                                          `/order/status/${item._id}?status=2`
+                                        )
+                                        .then((response) => {
+                                          fetchData();
+                                          console.log(response);
+                                        })
+                                        .catch((err) => {
+                                          console.log(err);
+                                        })
+                                    }
                                   >
                                     On its way
                                   </DropdownItem>
                                   <DropdownItem
                                     herf="#H@za"
-                                    onClick={(e) => e.preventDefault()}
-                                    defaultValue={2}
+                                    onClick={() =>
+                                      axios
+                                        .put(
+                                          `/order/status/${item._id}?status=3`
+                                        )
+                                        .then((response) => {
+                                          fetchData();
+                                          console.log(response);
+                                        })
+                                        .catch((err) => {
+                                          console.log(err);
+                                        })
+                                    }
                                   >
-                                    delivered
+                                    Delivered
                                   </DropdownItem>
                                   <DropdownItem
                                     herf="#H@za"
-                                    onClick={(e) => e.preventDefault()}
-                                    defaultValue={3}
+                                    onClick={() =>
+                                      axios
+                                        .put(
+                                          `/order/status/${item._id}?status=4`
+                                        )
+                                        .then((response) => {
+                                          fetchData();
+                                          console.log(response);
+                                        })
+                                        .catch((err) => {
+                                          console.log(err);
+                                        })
+                                    }
                                   >
-                                    pending
+                                    Cancel Order
                                   </DropdownItem>
                                 </DropdownMenu>
                               </UncontrolledDropdown>
@@ -274,7 +362,12 @@ const Orders = () => {
                 </div>
               </CardBody>
               <CardFooter>
-                <Pagination />
+                {console.log("order: ", order)}
+                <Pagination
+                  previous_page={order?.previous_page}
+                  current_page={order?.current_page}
+                  next_page={order?.next_page}
+                />
               </CardFooter>
             </Card>
           </div>

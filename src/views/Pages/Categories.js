@@ -1,5 +1,6 @@
 import Header from "components/Headers/Header.js";
 import Pagination from "components/Pagination/Pagination";
+// import { useParams } from "react-router-dom";
 
 import React, { useEffect, useState } from "react";
 import axios from "../../axios.js";
@@ -39,6 +40,24 @@ const Categories = () => {
     const result = await axios.get(`/category/subcategory`);
     setSubCategory(result.data);
   };
+
+  //
+
+  // const params = useParams();
+
+  // const [page, setPage] = useState(1);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [params.id, page]);
+
+  // const fetchData = async () => {
+  //   let temp = await axios.get(
+  //     `${process.env.React_APP_BASE_URL}/product/getByCatId/${params.id}?page=${page}`
+  //   );
+  //   setCatProducts(temp.data);
+  // };
+
+  //
   // Category Modal
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
@@ -96,7 +115,7 @@ const Categories = () => {
     axios
       .put(`/category/${editModal._id}/update`, {
         name: editModal.name,
-        Category: Cinputs.Category,
+        parentCategory: Cinputs.Category,
       })
       .then((response) => {
         fetchData();
@@ -156,11 +175,12 @@ const Categories = () => {
       });
     scToggle();
   };
+
   //Edit sub-category modal
   const [editScModal, setEditScModal] = useState(false);
   const [dataScModal, setDataScModal] = useState({
     name: "",
-    sCategory: "",
+    parentCategory: "",
   });
   const ScEditToggle = () => {
     setEditScModal(!editScModal);
@@ -175,8 +195,8 @@ const Categories = () => {
     props.preventDefault();
     axios
       .put(`/category/subcategory/${dataScModal._id}/update`, {
-        name: dataScModal.Sname,
-        parentCategory: scEditModal.parentCategory,
+        name: dataScModal.name,
+        parentCategory: scEditModal.subcategory,
       })
       .then((response) => {
         fetchSubCatData();
@@ -193,11 +213,11 @@ const Categories = () => {
             pauseOnHover: false,
           });
         }
+        ScEditToggle();
       })
       .catch((err) => {
         console.log(err);
       });
-    ScEditToggle();
   };
 
   return (
@@ -378,16 +398,16 @@ const Categories = () => {
           <ModalHeader toggle={ScEditToggle}>Edit Sub-Category</ModalHeader>
           <ModalBody>
             <AvField
-              name="scname"
+              name="name"
               type="text"
               onChange={(e) => {
                 setDataScModal((prev) => {
-                  prev.Sname = e.target.value;
+                  prev.name = e.target.value;
                   return { ...prev };
                 });
               }}
               placeholder="Enter Sub-Category Name..."
-              value={dataScModal.Sname}
+              value={dataScModal.name}
               validate={{
                 required: {
                   value: true,
@@ -403,8 +423,8 @@ const Categories = () => {
             <div className="mt-2">
               <Input
                 type="select"
-                defaultValue={dataScModal.parentCategory}
-                name="parentCategory"
+                defaultValue={dataScModal?.parentCategory?._id}
+                name="subcategory"
                 id="parentCategory"
                 onChange={handleEditScChange}
               >
@@ -421,7 +441,7 @@ const Categories = () => {
             <Button className="btn btn-success" type="submit" size="sm">
               Submit
             </Button>
-            <Button color="secondary" onClick={ScEditToggle}>
+            <Button color="secondary" onClick={ScEditToggle} size="sm">
               Cancel
             </Button>
           </ModalFooter>
@@ -555,7 +575,21 @@ const Categories = () => {
                                 )
                                 .then((response) => {
                                   fetchSubCatData();
-                                  console.log(response);
+                                  if (
+                                    response.data.msg === "Category Deleted!"
+                                  ) {
+                                    toast.success(response.data.msg, {
+                                      position: toast.POSITION.BOTTOM_RIGHT,
+                                      autoClose: 2000,
+                                      pauseOnHover: false,
+                                    });
+                                  } else {
+                                    toast.warning(response.data.msg, {
+                                      position: toast.POSITION.BOTTOM_RIGHT,
+                                      autoClose: 2000,
+                                      pauseOnHover: false,
+                                    });
+                                  }
                                 })
                                 .catch((err) => {
                                   console.log(err);
@@ -573,7 +607,13 @@ const Categories = () => {
                 </tbody>
               </Table>
               <CardFooter>
-                <Pagination />
+                <Pagination
+                // page={page}
+                // count={catProducts?.total_pages}
+                // onChange={(e, value) => {
+                //   setPage(value);
+                // }}
+                />
               </CardFooter>
             </Card>
           </Col>

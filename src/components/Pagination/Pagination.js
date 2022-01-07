@@ -1,31 +1,66 @@
 import React from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
-const pagination = () => {
+const pagination = (props) => {
   return (
-    <Pagination>
+    <Pagination aria-label="Page navigation example" size="sm">
       <PaginationItem>
-        <PaginationLink previous href="#" />
+        <PaginationLink href="#" previous />
       </PaginationItem>
       <PaginationItem>
-        <PaginationLink href="#">1</PaginationLink>
+        <PaginationLink href="#">{props.previous_page} </PaginationLink>
       </PaginationItem>
       <PaginationItem>
-        <PaginationLink href="#">2</PaginationLink>
+        <PaginationLink
+          href="#"
+          style={{ backgroundColor: "#28a745", color: "white" }}
+        >
+          {props.current_page}
+        </PaginationLink>
       </PaginationItem>
       <PaginationItem>
-        <PaginationLink href="#">3</PaginationLink>
+        <PaginationLink href="#">{props.next_page}</PaginationLink>
       </PaginationItem>
       <PaginationItem>
-        <PaginationLink href="#">4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink next href="#" />
+        <PaginationLink href="#" next />
       </PaginationItem>
     </Pagination>
   );
 };
 
 export default pagination;
+// import React from "react";
+// import Pagination from "@mui/material/Pagination";
+// import { makeStyles } from "@mui/styles";
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     width: "100%",
+//     display: "grid",
+//     placeItems: "center",
+//     marginTop: 10,
+//   },
+//   item: {
+//     "& .Mui-selected": {
+//       backgroundColor: "red",
+//     },
+//   },
+// }));
+
+// export default function PaginationRounded(props) {
+//   const classes = useStyles();
+
+//   return (
+//     <div className={classes.root}>
+//       <Pagination
+//         count={props.count}
+//         color="primary"
+//         shape="rounded"
+//         // siblingCount={0}
+//         page={props.page}
+//         className={classes.item}
+//         defaultPage={props.page}
+//         onChange={props.onChange}
+//       />
+//     </div>
+//   );
+// }

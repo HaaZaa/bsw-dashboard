@@ -42,7 +42,10 @@ const User = () => {
                           <tr>
                             <td>{item.name}</td>
                             <td>{item.email}</td>
-                            <td>{item.address}</td>
+                            <td>
+                              {item?.address.substring(0, 25)}
+                              {item?.address.length > 25 && "..."}
+                            </td>
                             {item.status === true ? (
                               <td>Actice</td>
                             ) : (

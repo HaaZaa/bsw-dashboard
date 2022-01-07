@@ -34,7 +34,7 @@ const Item = styled.div`
   display: inline-grid;
   text-align: center;
   min-height: 70px;
-  background-color: #eee;
+  background-color: #f2f2f2;
 `;
 
 const Slider = () => {
@@ -46,6 +46,7 @@ const Slider = () => {
     const result = await axios.get(`/slider`);
     setSlider(result.data);
   };
+  // let handleSwitch =
   {
     /* ////////////////////////////////////// ADD-SLIDER //////////////////////// */
   }
@@ -54,25 +55,29 @@ const Slider = () => {
   const [input, setInput] = useState({});
   let handleChange = (props) => {
     let name = props.target.name;
-    let value = props.target.value;
-    setInput((values) => ({ ...values, [name]: value }));
+    if (name === "addSlider") {
+      let value = props.target.files[0];
+      setInput((values) => ({ ...values, [name]: value }));
+      console.log(input.addSlider);
+    }
   };
   let handleSubmit = (props) => {
     props.preventDefault();
+    const formdata = new FormData();
+    formdata.append("image", input.addSlider);
+    formdata.append("active", true);
     axios
-      .post("/slider/create", {
-        addSlider: input.addSlider,
-      })
+      .post("/slider/create", formdata)
       .then((response) => {
         fetchData();
-        if (response.data.msg === "Product Added Succussfully") {
+        if (response.data.msg === "Slider Uploaded sucessfully!") {
           toast.success(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 2000,
             pauseOnHover: false,
           });
         } else {
-          toast.warning(response.data.msg, {
+          toast.error(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 2000,
             pauseOnHover: false,
@@ -80,7 +85,11 @@ const Slider = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.msg, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2000,
+          pauseOnHover: false,
+        });
       });
     toggle();
   };
@@ -128,7 +137,7 @@ const Slider = () => {
               </CardHeader>
               <CardBody>
                 <div>
-                  <Grid className="mt-3">
+                  <Grid className="mt-3 ">
                     {slider.map((item) => {
                       return (
                         <Item>
@@ -137,13 +146,85 @@ const Slider = () => {
                             src={`http://localhost:5000/${item?.image}`}
                             width={"100%"}
                           />
-                          <div className=" mt-2">
-                            <Button color="btn btn-info" size="sm">
-                              Edit
-                            </Button>
-                            <Button color="btn btn-danger" size="sm">
+                          <div className=" mt-3">
+                            <Button
+                              color="btn btn-danger  mb-4 "
+                              size="sm"
+                              onClick={() => {
+                                axios
+                                  .delete(`/slider/delete/${item?._id}`)
+                                  .then((response) => {
+                                    fetchData();
+                                    if (
+                                      response.data.msg === "Slider Deleted!"
+                                    ) {
+                                      toast.success(response.data.msg, {
+                                        position: toast.POSITION.BOTTOM_RIGHT,
+                                        autoClose: 2000,
+                                        pauseOnHover: false,
+                                      });
+                                    }
+                                  })
+                                  .catch((err) => {
+                                    toast.error(err.response.data.msg, {
+                                      position: toast.POSITION.BOTTOM_RIGHT,
+                                      autoClose: 2000,
+                                      pauseOnHover: false,
+                                    });
+                                  });
+                                fetchData();
+                              }}
+                            >
                               Delete
                             </Button>
+                            <label className="custom-toggle custom-toggle-success  ml-8">
+                              {/* {item.active === true ? (
+                                <input type="checkbox" checked />
+                              ) : ( */}
+                              <input
+                                type="checkbox"
+                                checked={item.active}
+                                onChange={() => {
+                                  axios
+                                    .put(`/slider/update/${item?._id}`)
+                                    .then((response) => {
+                                      fetchData();
+                                      if (
+                                        response.data.msg ===
+                                          "Slider Activated" ||
+                                        response.data.msg ===
+                                          "Slider Deactivated"
+                                      ) {
+                                        toast.success(response.data.msg, {
+                                          position: toast.POSITION.BOTTOM_RIGHT,
+                                          autoClose: 2000,
+                                          pauseOnHover: false,
+                                        });
+                                      } else {
+                                        toast.error(response.data.msg, {
+                                          position: toast.POSITION.BOTTOM_RIGHT,
+                                          autoClose: 2000,
+                                          pauseOnHover: false,
+                                        });
+                                      }
+                                    })
+                                    .catch((err) => {
+                                      toast.error(err.response.data.msg, {
+                                        position: toast.POSITION.BOTTOM_RIGHT,
+                                        autoClose: 2000,
+                                        pauseOnHover: false,
+                                      });
+                                    });
+                                  fetchData();
+                                }}
+                              />
+
+                              <span
+                                className="custom-toggle-slider rounded-circle "
+                                data-label-off="Disabled"
+                                data-label-on="Enabled"
+                              ></span>
+                            </label>
                           </div>
                         </Item>
                       );

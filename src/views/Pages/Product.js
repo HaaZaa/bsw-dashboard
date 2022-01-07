@@ -554,10 +554,11 @@ const Product = () => {
                     <tr>
                       <th scope="col">product Image</th>
                       <th scope="col">product name</th>
-                      <th scope="col">Manufactures Part #</th>
+                      <th scope="col">Manufactures Part#</th>
                       <th scope="col">Stock</th>
                       <th scope="col">Price</th>
                       <th scope="col">Actions</th>
+                      <th scope="col">Featured</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -618,6 +619,56 @@ const Product = () => {
                             >
                               Delete
                             </Button>
+                          </td>
+                          <td>
+                            <label className="custom-toggle custom-toggle-success">
+                              {/* {item.active === true ? (
+                                <input type="checkbox" checked />
+                              ) : ( */}
+                              <input
+                                type="checkbox"
+                                checked={item.featured}
+                                onChange={() => {
+                                  axios
+                                    .put(`/product/${item?._id}/feature`)
+                                    .then((response) => {
+                                      fetchData();
+                                      if (
+                                        (response.data.msg ===
+                                          "Product Added to Featured Products!") |
+                                        (response.data.msg ===
+                                          "Product Removed from Featured Products!")
+                                      ) {
+                                        toast.success(response.data.msg, {
+                                          position: toast.POSITION.BOTTOM_RIGHT,
+                                          autoClose: 2000,
+                                          pauseOnHover: false,
+                                        });
+                                      } else {
+                                        toast.error(response.data.msg, {
+                                          position: toast.POSITION.BOTTOM_RIGHT,
+                                          autoClose: 2000,
+                                          pauseOnHover: false,
+                                        });
+                                      }
+                                    })
+                                    .catch((err) => {
+                                      toast.error(err.response.data.msg, {
+                                        position: toast.POSITION.BOTTOM_RIGHT,
+                                        autoClose: 2000,
+                                        pauseOnHover: false,
+                                      });
+                                    });
+                                  fetchData();
+                                }}
+                              />
+
+                              <span
+                                className="custom-toggle-slider rounded-circle "
+                                data-label-off="Disabled"
+                                data-label-on="Enabled"
+                              ></span>
+                            </label>
                           </td>
                         </tr>
                       );

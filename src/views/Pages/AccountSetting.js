@@ -11,11 +11,68 @@ import {
 // core components
 import Header from "components/Headers/Header.js";
 import { AvForm, AvField } from "availity-reactstrap-validation";
+import axios from "../../axios.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+import { useState, useEffect } from "react";
 const Profile = () => {
+  const [tax, setTax] = useState({});
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const result = await axios.get(`/dashboard/gettax`);
+
+    setTax(result.data);
+  };
+  //handle tax and delivery
+  const [input, setInput] = useState({});
+  let handleTaxChange = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
+    setInput((values) => ({ ...values, [name]: value }));
+    console.log(
+      "🚀 ~ file: AccountSetting.js ~ line 35 ~ handleTaxChange ~ input",
+      name
+    );
+  };
+  let handleTaxSubmit = (props) => {
+    console.log(
+      "🚀 ~ file: AccountSetting.js ~ line 37 ~ handleTaxSubmit ~ props",
+      props
+    );
+    props.preventDefault();
+    axios
+      .put("/dashboard/settax", {
+        tax: input.tax,
+        delivery: input.delivery,
+      })
+      .then((response) => {
+        fetchData();
+        if (response.data.msg === "Tax info Updated!") {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <Header />
+      <ToastContainer />
 
       {/* Page content */}
       <Container className="mt--7" fluid>
@@ -35,29 +92,9 @@ const Profile = () => {
                     />
                   </span>
                 </div>
-                {/* <div className="d-flex justify-content-between">
-                  <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
-                    className="float-right"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Message
-                  </Button>
-                </div> */}
               </CardHeader>
               <CardBody>
-                <AvForm>
+                <AvForm onSubmit={handleTaxSubmit}>
                   <h6 className="heading-small text-muted mb-4">
                     TAX and Delivery Charges
                   </h6>
@@ -65,11 +102,14 @@ const Profile = () => {
                   <div className="pl-lg-4">
                     <Col lg="8">
                       <label className="form-control-label">
-                        TAX on orders
+                        TAX on orders ($)
                       </label>
                       <AvField
                         name="tax"
                         type="number"
+                        placeholder="TAX"
+                        value={tax.tax}
+                        onChage={handleTaxChange}
                         validate={{
                           required: {
                             value: true,
@@ -86,16 +126,21 @@ const Profile = () => {
                             errorMessage: "Maximum Lenght sholud be 2-Digits",
                           },
                         }}
-                      />
+                      >
+                        $
+                      </AvField>
                     </Col>
 
                     <Col lg="8">
                       <label className="form-control-label">
-                        Delivery Charges on orders
+                        Delivery Charges on orders (%)
                       </label>
                       <AvField
                         name="delivery"
                         type="number"
+                        placeholder="Delivery Charges"
+                        value={tax.delivery}
+                        onChage={handleTaxChange}
                         validate={{
                           required: {
                             value: true,
@@ -116,7 +161,11 @@ const Profile = () => {
                     </Col>
                   </div>
                   <div className="text-right">
-                    <Button className="btn btn-success " types="submit">
+                    <Button
+                      className="btn btn-success "
+                      type="submit"
+                      size="sm"
+                    >
                       UPDATE
                     </Button>
                   </div>
@@ -147,6 +196,7 @@ const Profile = () => {
                         <AvField
                           name="name"
                           type="text"
+                          placeholder="Enter UserName"
                           validate={{
                             required: {
                               value: true,
@@ -176,6 +226,7 @@ const Profile = () => {
                         <AvField
                           name="email"
                           type="email"
+                          placeholder="Enter your Email"
                           validate={{
                             required: {
                               value: true,
@@ -195,7 +246,7 @@ const Profile = () => {
                     </Row>
                   </div>
                   <div className="text-right">
-                    <Button className="btn btn-success" type="submit">
+                    <Button className="btn btn-success" type="submit" size="sm">
                       Save Changes
                     </Button>
                   </div>
@@ -214,7 +265,8 @@ const Profile = () => {
                       </label>
                       <AvField
                         name="currentpassword"
-                        type="text"
+                        type="password"
+                        placeholder="Enter your current password"
                         validate={{
                           required: {
                             value: true,
@@ -236,6 +288,7 @@ const Profile = () => {
                       <AvField
                         name="newpassword"
                         type="password"
+                        placeholder="Enter new password"
                         validate={{
                           required: {
                             value: true,
@@ -257,6 +310,7 @@ const Profile = () => {
                       <AvField
                         name="confirmpassword"
                         type="password"
+                        placeholder="Confirm new password"
                         validate={{
                           required: {
                             value: true,
@@ -274,7 +328,11 @@ const Profile = () => {
                       />
                     </Col>
                     <div className="text-right">
-                      <Button className="btn btn-success" type="submit">
+                      <Button
+                        className="btn btn-success"
+                        type="submit"
+                        size="sm"
+                      >
                         Update
                       </Button>
                     </div>
