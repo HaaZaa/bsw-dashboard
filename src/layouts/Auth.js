@@ -25,6 +25,8 @@ import { Container, Row, Col } from "reactstrap";
 import AuthFooter from "components/Footers/AuthFooter.js";
 
 import routes from "routes.js";
+import { ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
@@ -60,6 +62,12 @@ const Auth = (props) => {
 
   return (
     <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        transition={Flip}
+      />
       <div className="main-content" ref={mainContent}>
         {/* <AuthNavbar /> */}
         <div className="header bg-gradient-danger pb-8 pt-5 pt-md-9 ">
