@@ -1,28 +1,14 @@
 {
-  "name": "argon-dashboard-react",
+  "name": "bsw-engineering",
   "version": "1.2.1",
   "description": "this is the admin dashboard for BSW Engineering",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativetimofficial/argon-dashboard-react.git"
-  },
+  
   "keywords": [
-    "react",
-    "reactjs",
-    "argon",
-    "argon-react",
-    "dashboard",
-    "dashboard-react",
-    "argon-dashboard",
-    "argon-dashboard-react"
+    "bswdashboard"
   ],
   "author": "BSW Engineering",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/argon-dashboard-react/issues"
-  },
-  "homepage": "https://demos.creative-tim.com/argon-dashboard-react/",
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

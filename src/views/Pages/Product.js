@@ -13,11 +13,14 @@ import {
   ModalBody,
   Input,
   ModalFooter,
+  CardFooter,
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AvForm, AvField } from "availity-reactstrap-validation";
+import Pagination from "components/Pagination/Pagination.js";
+
 const Product = () => {
   const [products, setProducts] = useState({});
   useEffect(() => {
@@ -33,12 +36,10 @@ const Product = () => {
     fetchSubCatData();
   }, []);
   const fetchSubCatData = async () => {
-    const result = await axios.get(`/category/subcategory`);
+    const result = await axios.get(`/category/subcategory/product`);
     setSubCategory(result.data);
   };
-  {
-    /*///////////////////////////////// MODAL Add Product /////////////////////////////////////*/
-  }
+  // add Product Modal
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [inputs, setInputs] = useState({});
@@ -92,9 +93,7 @@ const Product = () => {
       });
     toggle();
   };
-  {
-    /*///////////////////////////////// MODAL Edit Product /////////////////////////////////////*/
-  }
+  // Edit Product Modal
   const [Pmodal, setPModal] = useState(false);
   const [modalData, setModalData] = useState({
     pname: "",
@@ -147,10 +146,20 @@ const Product = () => {
       });
     Ptoggle();
   };
+
+  const onPageNext = async () => {
+    const result = await axios.get(`/product?page=${products?.next_page}`);
+    setProducts(result.data);
+  };
+  const onPagePrevious = async () => {
+    const result = await axios.get(`/product?page=${products?.previous_page}`);
+    setProducts(result.data);
+  };
+
   return (
     <div>
       <Header />
-      {/*///////////////////////////////// MODAL Add Product /////////////////////////////////////*/}
+      {/* Add Product Modal */}
       <Modal isOpen={modal}>
         <AvForm onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add New Product</ModalHeader>
@@ -301,12 +310,6 @@ const Product = () => {
                 return <option value={item._id}>{item.name}</option>;
               })}
             </Input>
-
-            <label>
-              Button to Feature product :{" "}
-              <input type="checkbox" name="Featured" onChange={handleChange} />
-            </label>
-
             <h5 className="mt-2">Upload product image</h5>
             <Input
               name="Pimage"
@@ -567,6 +570,7 @@ const Product = () => {
                         <tr>
                           <td>
                             <img
+                              alt=""
                               src={`http://localhost:5000/${item?.image}`}
                               width={"50px"}
                               onError={(e) => {
@@ -676,6 +680,17 @@ const Product = () => {
                   </tbody>
                 </Table>
               </CardBody>
+              <CardFooter>
+                <Pagination
+                  previous_page={products?.previous_page}
+                  current_page={products?.current_page}
+                  next_page={products?.next_page}
+                  onPageNext={onPageNext}
+                  onPagePrevious={onPagePrevious}
+                  has_previous_page={products.has_previous_page}
+                  has_next_page={products.has_next_page}
+                />
+              </CardFooter>
             </Card>
           </div>
         </Row>

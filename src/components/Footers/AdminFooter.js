@@ -1,5 +1,5 @@
 // reactstrap components
-import { Container, Row, Col, Nav, NavItem, NavLink } from "reactstrap";
+import { Container, Row, Col, Nav, NavItem } from "reactstrap";
 
 const Footer = () => {
   return (
@@ -13,6 +13,7 @@ const Footer = () => {
                 className="font-weight-bold ml-1"
                 href="https://www.bswengineering.com"
                 target="_blank"
+                rel="noreferrer"
               >
                 BSW Engineering
               </a>
@@ -26,6 +27,7 @@ const Footer = () => {
                     className="font-weight-bold ml-1"
                     href="https://bit.ly/3CY913f"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     Powered by : MANTH SOLUTIONS
                   </a>

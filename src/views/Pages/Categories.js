@@ -24,40 +24,29 @@ import "react-toastify/dist/ReactToastify.css";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 
 const Categories = () => {
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState({});
+  const [addCategory, setAddCategory] = useState([]);
   useEffect(() => {
     fetchData();
+    fetchCatData();
   }, []);
   const fetchData = async () => {
-    const result = await axios.get(`/category`);
+    const result = await axios.get(`/category?page=1`);
     setCategory(result.data);
   };
-  const [subCategory, setSubCategory] = useState([]);
+  const fetchCatData = async () => {
+    const result = await axios.get(`/category/all`);
+    setAddCategory(result.data);
+  };
+  const [subCategory, setSubCategory] = useState({});
   useEffect(() => {
     fetchSubCatData();
   }, []);
   const fetchSubCatData = async () => {
-    const result = await axios.get(`/category/subcategory`);
+    const result = await axios.get(`/category/subcategory?page=1`);
     setSubCategory(result.data);
   };
 
-  //
-
-  // const params = useParams();
-
-  // const [page, setPage] = useState(1);
-  // useEffect(() => {
-  //   fetchData();
-  // }, [params.id, page]);
-
-  // const fetchData = async () => {
-  //   let temp = await axios.get(
-  //     `${process.env.React_APP_BASE_URL}/product/getByCatId/${params.id}?page=${page}`
-  //   );
-  //   setCatProducts(temp.data);
-  // };
-
-  //
   // Category Modal
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
@@ -219,6 +208,31 @@ const Categories = () => {
         console.log(err);
       });
   };
+  // paginatoin functions for category
+
+  const onPageNext = async () => {
+    const result = await axios.get(`/category?page=${category?.next_page}`);
+    setCategory(result.data);
+  };
+  const onPagePrevious = async () => {
+    const result = await axios.get(`/category?page=${category?.previous_page}`);
+    setCategory(result.data);
+  };
+
+  // paginatoin functions for sub-category
+
+  const onScPageNext = async () => {
+    const result = await axios.get(
+      `/category/subcategory?page=${subCategory?.next_page}`
+    );
+    setSubCategory(result.data);
+  };
+  const onScPagePrevious = async () => {
+    const result = await axios.get(
+      `/category/subcategory?page=${subCategory?.previous_page}`
+    );
+    setSubCategory(result.data);
+  };
 
   return (
     <div>
@@ -376,7 +390,7 @@ const Categories = () => {
                 <option value="DEFAULT" disabled>
                   Choose a Category ...
                 </option>
-                {category.map((item, index) => {
+                {addCategory.map((item, index) => {
                   return <option value={item._id}>{item.name}</option>;
                 })}
               </Input>
@@ -431,7 +445,7 @@ const Categories = () => {
                 <option value="DEFAULT" disabled>
                   Choose a Category ...
                 </option>
-                {category.map((item, index) => {
+                {addCategory.map((item, index) => {
                   return <option value={item._id}>{item.name}</option>;
                 })}
               </Input>
@@ -450,7 +464,7 @@ const Categories = () => {
       {/* category table */}
       <Container className="mt--9">
         <Row>
-          <Col xl="4" className="mt-5">
+          <Col xl="4" className="mt-5 mb-xl-0">
             <Card className="shadow">
               <CardHeader className="bg-transparent border-0">
                 <Row className="align-items-center">
@@ -469,6 +483,7 @@ const Categories = () => {
                   </div>
                 </Row>
               </CardHeader>
+
               <Table className="align-items-center  table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
@@ -477,7 +492,7 @@ const Categories = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {category.map((item) => {
+                  {category?.categories?.map((item) => {
                     return (
                       <tr>
                         <td>{item.name}</td>
@@ -518,12 +533,23 @@ const Categories = () => {
                   })}
                 </tbody>
               </Table>
+              <CardFooter>
+                <Pagination
+                  previous_page={category?.previous_page}
+                  current_page={category?.current_page}
+                  next_page={category?.next_page}
+                  onPageNext={onPageNext}
+                  onPagePrevious={onPagePrevious}
+                  has_previous_page={category.has_previous_page}
+                  has_next_page={category.has_next_page}
+                />
+              </CardFooter>
             </Card>
           </Col>
           {/* Sub-category table */}
           <Col className="mt-5 mb-xl-0" xl="7">
             <Card className="shadow">
-              <CardHeader className="border-0">
+              <CardHeader className="bg-transparent border-0">
                 <Row className="align-items-center">
                   <div className="col">
                     <h3 className="mb-0">Sub-Categories</h3>
@@ -549,7 +575,7 @@ const Categories = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {subCategory.map((item) => {
+                  {subCategory?.categories?.map((item) => {
                     return (
                       <tr>
                         <td>{item?.name}</td>
@@ -608,11 +634,13 @@ const Categories = () => {
               </Table>
               <CardFooter>
                 <Pagination
-                // page={page}
-                // count={catProducts?.total_pages}
-                // onChange={(e, value) => {
-                //   setPage(value);
-                // }}
+                  previous_page={subCategory?.previous_page}
+                  current_page={subCategory?.current_page}
+                  next_page={subCategory?.next_page}
+                  onPageNext={onScPageNext}
+                  onPagePrevious={onScPagePrevious}
+                  has_previous_page={subCategory.has_previous_page}
+                  has_next_page={subCategory.has_next_page}
                 />
               </CardFooter>
             </Card>

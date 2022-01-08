@@ -1,25 +1,4 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 const Chart = require("chart.js");
-//
-// Chart extension for making the bars rounded
-// Code from: https://codepen.io/jedtrow/full/ygRYgo
-//
 
 Chart.elements.Rectangle.prototype.draw = function () {
   var ctx = this._chart.ctx;
@@ -180,7 +159,6 @@ var colors = {
 };
 
 // Methods
-
 // Chart.js global options
 function chartOptions() {
   // Options
@@ -307,7 +285,7 @@ function parseOptions(parent, options) {
 }
 
 // Example 1 of Chart inside src/views/Index.js (Sales value - Card)
-let chartExample1 = {
+let salesChart = {
   options: {
     scales: {
       yAxes: [
@@ -352,21 +330,10 @@ let chartExample1 = {
       },
     ],
   },
-  // data2: (canvas) => {
-  //   return {
-  //     labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-  //     datasets: [
-  //       {
-  //         label: "Performance",
-  //         data: [0, 20, 5, 25, 10, 30, 15, 40, 40],
-  //       },
-  //     ],
-  //   };
-  // },
 };
 
 // Example 2 of Chart inside src/views/Index.js (Total orders - Card)
-let chartExample2 = {
+let totalOrders = {
   options: {
     scales: {
       yAxes: [
@@ -410,8 +377,8 @@ let chartExample2 = {
 };
 
 module.exports = {
-  chartOptions, // used inside src/views/Index.js
-  parseOptions, // used inside src/views/Index.js
-  chartExample1, // used inside src/views/Index.js
-  chartExample2, // used inside src/views/Index.js
+  chartOptions,
+  parseOptions,
+  salesChart,
+  totalOrders,
 };

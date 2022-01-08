@@ -46,10 +46,7 @@ const Slider = () => {
     const result = await axios.get(`/slider`);
     setSlider(result.data);
   };
-  // let handleSwitch =
-  {
-    /* ////////////////////////////////////// ADD-SLIDER //////////////////////// */
-  }
+  // Add new Slider Modal
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [input, setInput] = useState({});
@@ -96,7 +93,7 @@ const Slider = () => {
   return (
     <div>
       <Header />
-      {/* ////////////////////////////////////// ADD-SLIDER //////////////////////// */}
+      {/* Add new slider */}
       <Modal isOpen={modal}>
         <Form onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Add new Slider</ModalHeader>
@@ -178,9 +175,6 @@ const Slider = () => {
                               Delete
                             </Button>
                             <label className="custom-toggle custom-toggle-success  ml-8">
-                              {/* {item.active === true ? (
-                                <input type="checkbox" checked />
-                              ) : ( */}
                               <input
                                 type="checkbox"
                                 checked={item.active}

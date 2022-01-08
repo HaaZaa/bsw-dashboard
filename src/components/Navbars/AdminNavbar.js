@@ -1,30 +1,18 @@
-import { Link } from "react-router-dom";
 // reactstrap components
-import {
-  Form,
-  FormGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  InputGroup,
-  Navbar,
-  Nav,
-  Container,
-} from "reactstrap";
+import { Navbar, Container, Label, Badge } from "reactstrap";
+import { Store } from "StoreContext.js";
 
 const AdminNavbar = (props) => {
+  const store = new Store();
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
-          <Link
-            className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            to="/"
-          >
+          <p className="h1 mb-0 text-white text-uppercase d-none d-lg-inline-block">
             {props.brandText}
-          </Link>
-          <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-            <FormGroup className="mb-0">
+          </p>
+          {/* <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"> */}
+          {/* <FormGroup className="mb-0">
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
@@ -33,8 +21,11 @@ const AdminNavbar = (props) => {
                 </InputGroupAddon>
                 <Input placeholder="Search" type="text" />
               </InputGroup>
-            </FormGroup>
-          </Form>
+            </FormGroup> */}
+          <Badge color="danger" pill>
+            <Label className="h4 mb-0 text-white">{store.user.name}</Label>
+          </Badge>
+          {/* </Form> */}
           {/* <Nav className="align-items-center d-none d-md-flex" navbar> */}
           {/* <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav> */}

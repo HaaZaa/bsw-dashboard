@@ -22,7 +22,6 @@ import {
   ModalFooter,
   Form,
   Col,
-  Label,
   CardFooter,
 } from "reactstrap";
 const Orders = () => {
@@ -159,7 +158,7 @@ const Orders = () => {
             <ModalFooter>
               <div>
                 <a
-                  href={`http://localhost:5000/api/order/invoice/${selected?._id}`}
+                  href={`http://localhost:5000/order/invoice/${selected?._id}`}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -362,11 +361,14 @@ const Orders = () => {
                 </div>
               </CardBody>
               <CardFooter>
-                {console.log("order: ", order)}
                 <Pagination
                   previous_page={order?.previous_page}
                   current_page={order?.current_page}
                   next_page={order?.next_page}
+                  onPageNext={onPageNext}
+                  onPagePrevious={onPagePrevious}
+                  has_previous_page={order.has_previous_page}
+                  has_next_page={order.has_next_page}
                 />
               </CardFooter>
             </Card>

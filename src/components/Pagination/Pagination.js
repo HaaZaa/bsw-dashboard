@@ -4,11 +4,13 @@ const pagination = (props) => {
   return (
     <Pagination aria-label="Page navigation example" size="sm">
       <PaginationItem>
-        <PaginationLink href="#" previous />
+        <PaginationLink previous onClick={props.onPagePrevious} />
       </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">{props.previous_page} </PaginationLink>
-      </PaginationItem>
+      {props.has_previous_page && (
+        <PaginationItem>
+          <PaginationLink href="#">{props.previous_page} </PaginationLink>
+        </PaginationItem>
+      )}
       <PaginationItem>
         <PaginationLink
           href="#"
@@ -17,11 +19,14 @@ const pagination = (props) => {
           {props.current_page}
         </PaginationLink>
       </PaginationItem>
+      {props.has_next_page && (
+        <PaginationItem>
+          <PaginationLink href="#">{props.next_page}</PaginationLink>
+        </PaginationItem>
+      )}
+
       <PaginationItem>
-        <PaginationLink href="#">{props.next_page}</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#" next />
+        <PaginationLink next onClick={props.onPageNext} />
       </PaginationItem>
     </Pagination>
   );

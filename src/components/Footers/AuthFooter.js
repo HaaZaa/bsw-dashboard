@@ -1,5 +1,5 @@
 // reactstrap components
-import { NavItem, NavLink, Nav, Container, Row, Col } from "reactstrap";
+import { NavItem, Nav, Container, Row, Col } from "reactstrap";
 
 const Login = () => {
   return (
@@ -14,6 +14,7 @@ const Login = () => {
                   className="font-weight-bold ml-1"
                   href="https://www.bswengineering.com"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   BSW Engineering
                 </a>
@@ -27,6 +28,7 @@ const Login = () => {
                       className="font-weight-bold ml-1"
                       href="https://bit.ly/3CY913f"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       Powered by : MANTH SOLUTIONS
                     </a>

@@ -14,9 +14,10 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import axios from "../../axios.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Store } from "StoreContext.js";
 import { useState, useEffect } from "react";
 const Profile = () => {
+  const store = new Store();
   const [tax, setTax] = useState({});
   useEffect(() => {
     fetchData();
@@ -197,6 +198,7 @@ const Profile = () => {
                           name="name"
                           type="text"
                           placeholder="Enter UserName"
+                          value={store.user.name}
                           validate={{
                             required: {
                               value: true,
@@ -227,6 +229,7 @@ const Profile = () => {
                           name="email"
                           type="email"
                           placeholder="Enter your Email"
+                          value={store.user.email}
                           validate={{
                             required: {
                               value: true,
