@@ -47,8 +47,16 @@ const Product = () => {
   let handleChange = (props) => {
     let name = props.target.name;
     if (name === "Pimage" || name === "pPDF") {
-      let value = props.target.files[0];
-      setInputs((values) => ({ ...values, [name]: value }));
+      if (name === "Pimage") {
+        let value = [];
+        for (let i = 0; i < props.target.files.length; i++) {
+          value.push(props.target.files[i]);
+        }
+        setInputs((values) => ({ ...values, [name]: value }));
+      } else {
+        let value = props.target.files[0];
+        setInputs((values) => ({ ...values, [name]: value }));
+      }
     } else {
       let value = props.target.value;
       setInputs((values) => ({ ...values, [name]: value }));
@@ -59,13 +67,15 @@ const Product = () => {
     props.preventDefault();
     const formdata = new FormData();
     formdata.append("name", inputs.Pname);
-    formdata.append("image", inputs.Pimage);
     formdata.append("pdf", inputs.pPDF);
     formdata.append("stock", inputs.Pstock);
     formdata.append("price", inputs.Pprize);
     formdata.append("categoryId", inputs.CategoryID);
     formdata.append("description", inputs.Pdescription);
     formdata.append("mpn", inputs.PpartNo);
+    for (let i = 0; i < inputs.Pimage.length; i++) {
+      formdata.append(`image`, inputs.Pimage[i]);
+    }
     axios
       .post("/product/create", formdata)
       .then((response) => {
@@ -99,32 +109,51 @@ const Product = () => {
     pname: "",
     pdescription: "",
     pprice: 0,
-    PMN: "",
+    mpn: "",
     pStock: "",
     pCategory: "",
-    pImg: [],
+    Pimage: [],
     pPDF: [],
+    _id: "",
   });
   const Ptoggle = () => {
     setPModal(!Pmodal);
   };
-  const [Pinputs, setPInputs] = useState({});
-  let handlePChange = (props) => {
+
+  let handleEditChange = (props) => {
     let name = props.target.name;
-    let value = props.target.value;
-    setPInputs((values) => ({ ...values, [name]: value }));
+    if (name === "Pimage" || name === "pPDF") {
+      if (name === "Pimage") {
+        let value = [];
+        for (let i = 0; i < props.target.files.length; i++) {
+          value.push(props.target.files[i]);
+        }
+        setModalData((values) => ({ ...values, [name]: value }));
+      } else {
+        let value = props.target.files[0];
+        setModalData((values) => ({ ...values, [name]: value }));
+      }
+    } else {
+      let value = props.target.value;
+      setModalData((values) => ({ ...values, [name]: value }));
+    }
   };
-  let handlePSubmit = (props) => {
+
+  let handleEditSubmit = (props) => {
     props.preventDefault();
+    const formdata = new FormData();
+    formdata.append("name", modalData.pname);
+    formdata.append("pdf", modalData.pPDF);
+    formdata.append("stock", modalData.pStock);
+    formdata.append("price", modalData.pprice);
+    formdata.append("categoryId", modalData.pCategory);
+    formdata.append("description", modalData.pdescription);
+    formdata.append("mpn", modalData.mpn);
+    for (let i = 0; i < modalData.Pimage.length; i++) {
+      formdata.append(`image`, modalData.Pimage[i]);
+    }
     axios
-      .post("/product/update", {
-        Pname: Pinputs.Pname,
-        Pdescription: Pinputs.Pdescription,
-        Pprize: Pinputs.Pprize,
-        CategoryID: Pinputs.CategoryID,
-        Pstock: Pinputs.Pstock,
-        Pimage: Pinputs.Pimage,
-      })
+      .put(`/product/${modalData._id}/update`, formdata)
       .then((response) => {
         fetchData();
         if (response.data.msg === "Product Added Succussfully") {
@@ -341,19 +370,14 @@ const Product = () => {
       </Modal>
       {/*///////////////////////////////// MODAL Edit Product /////////////////////////////////////*/}
       <Modal isOpen={Pmodal}>
-        <AvForm onSubmit={handlePSubmit}>
+        <AvForm onSubmit={handleEditSubmit}>
           <ModalHeader toggle={Ptoggle}>Edit Product Details</ModalHeader>
           <ModalBody>
             <AvField
-              name="Pname"
+              name="pname"
               type="text"
               value={modalData.pname}
-              onChange={(e) => {
-                setModalData((prev) => {
-                  prev.pname = e.target.value;
-                  return { ...prev };
-                });
-              }}
+              onChange={handleEditChange}
               placeholder="Enter Product Name"
               validate={{
                 required: {
@@ -375,10 +399,11 @@ const Product = () => {
               }}
             />
             <AvField
-              name="Pdescription"
+              name="pdescription"
               type="textarea"
               placeholder="Enter Product Description"
-              onChange={handlePChange}
+              value={modalData.pdescription}
+              onChange={handleEditChange}
               className="mt-2"
               validate={{
                 required: {
@@ -402,10 +427,11 @@ const Product = () => {
               }}
             />
             <AvField
-              name="Pprize"
+              name="pprice"
               type="number"
               placeholder="Enter Product Price"
-              onChange={handlePChange}
+              value={modalData.pprice}
+              onChange={handleEditChange}
               className="mt-2"
               validate={{
                 required: {
@@ -428,10 +454,11 @@ const Product = () => {
               }}
             />
             <AvField
-              name="_PpartNo"
+              name="mpn"
               type="text"
               placeholder="Enter Manufacture Part Number"
-              onChange={handleChange}
+              value={modalData.mpn}
+              onChange={handleEditChange}
               className="mt-2"
               validate={{
                 required: {
@@ -457,10 +484,11 @@ const Product = () => {
               }}
             />
             <AvField
-              name="Pstock"
+              name="pStock"
               type="number"
               placeholder="Enter Amount of Product in stock "
-              onChange={handlePChange}
+              value={modalData.pStock}
+              onChange={handleEditChange}
               className="mt-2"
               validate={{
                 required: {
@@ -487,9 +515,10 @@ const Product = () => {
               className="mt-2"
               type="select"
               defaultValue={"DEFAULT"}
-              name="parentCategory"
+              name="pCategory"
               id="parentCategory"
-              onChange={handlePChange}
+              value={modalData.pCategory}
+              onChange={handleEditChange}
             >
               <option value="DEFAULT" disabled>
                 Choose a Category ...
@@ -504,18 +533,19 @@ const Product = () => {
               name="Pimage"
               type="file"
               placeholder="Upload product Image"
-              onChange={handlePChange}
               className="mt-2"
+              onChange={handleEditChange}
               required
-            ></Input>
+              multiple
+            />
             <h5 className="mt-2">Upload product PDF file</h5>
             <Input
-              name="product PDF Details"
+              name="pPDF"
               type="file"
-              onChange={handlePChange}
               className="mt-2"
+              onChange={handleEditChange}
               required
-            ></Input>
+            />
           </ModalBody>
           <ModalHeader>
             <Button size="sm" className="btn btn-success" type="submit">
@@ -594,11 +624,12 @@ const Product = () => {
                                   prev.pname = item.name;
                                   prev.pdescription = item.description;
                                   prev.pprice = item.price;
-                                  prev.PMN = item.PMN;
+                                  prev.mpn = item.mpn;
                                   prev.pStock = item.stock;
-                                  prev.pCategory = item.categoryId.name;
-                                  prev.pImg = item.image;
-                                  prev.pPDF = item.PDF;
+                                  prev.pCategory = item.categoryId._id;
+                                  prev.Pimage = item.image;
+                                  prev.pPDF = item.pdf;
+                                  prev._id = item._id;
                                   return { ...prev };
                                 });
                                 Ptoggle();
