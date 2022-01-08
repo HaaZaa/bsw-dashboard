@@ -30,13 +30,13 @@ const Profile = () => {
   //handle tax and delivery
   const [input, setInput] = useState({});
   let handleTaxChange = (props) => {
+    console.log(
+      "🚀 ~ file: AccountSetting.js ~ line 33 ~ handleTaxChange ~ props",
+      props
+    );
     let name = props.target.name;
     let value = props.target.value;
     setInput((values) => ({ ...values, [name]: value }));
-    console.log(
-      "🚀 ~ file: AccountSetting.js ~ line 35 ~ handleTaxChange ~ input",
-      name
-    );
   };
   let handleTaxSubmit = (props) => {
     console.log(
@@ -45,7 +45,7 @@ const Profile = () => {
     );
     props.preventDefault();
     axios
-      .put("/dashboard/settax", {
+      .post("/dashboard/settax", {
         tax: input.tax,
         delivery: input.delivery,
       })
@@ -110,7 +110,7 @@ const Profile = () => {
                         type="number"
                         placeholder="TAX"
                         value={tax.tax}
-                        onChage={handleTaxChange}
+                        onChange={handleTaxChange}
                         validate={{
                           required: {
                             value: true,
@@ -141,7 +141,7 @@ const Profile = () => {
                         type="number"
                         placeholder="Delivery Charges"
                         value={tax.delivery}
-                        onChage={handleTaxChange}
+                        onChange={handleTaxChange}
                         validate={{
                           required: {
                             value: true,
