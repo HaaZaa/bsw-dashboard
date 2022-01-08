@@ -8,12 +8,14 @@ const pagination = (props) => {
       </PaginationItem>
       {props.has_previous_page && (
         <PaginationItem>
-          <PaginationLink href="#">{props.previous_page} </PaginationLink>
+          <PaginationLink style={{ cursor: "default" }}>
+            {props.previous_page}
+          </PaginationLink>
         </PaginationItem>
       )}
       <PaginationItem>
         <PaginationLink
-          href="#"
+          style={{ cursor: "default" }}
           style={{ backgroundColor: "#28a745", color: "white" }}
         >
           {props.current_page}
@@ -21,7 +23,9 @@ const pagination = (props) => {
       </PaginationItem>
       {props.has_next_page && (
         <PaginationItem>
-          <PaginationLink href="#">{props.next_page}</PaginationLink>
+          <PaginationLink style={{ cursor: "default" }}>
+            {props.next_page}
+          </PaginationLink>
         </PaginationItem>
       )}
 
