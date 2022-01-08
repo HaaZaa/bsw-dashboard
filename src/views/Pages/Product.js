@@ -156,7 +156,7 @@ const Product = () => {
       .put(`/product/${modalData._id}/update`, formdata)
       .then((response) => {
         fetchData();
-        if (response.data.msg === "Product Added Succussfully") {
+        if (response.data.msg === "Product Updated Sucessfully!") {
           toast.success(response.data.msg, {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 2000,
