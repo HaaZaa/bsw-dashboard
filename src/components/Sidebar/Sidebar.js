@@ -6,11 +6,6 @@ import { PropTypes } from "prop-types";
 // reactstrap components
 import {
   Collapse,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   NavbarBrand,
   Navbar,
   NavItem,
