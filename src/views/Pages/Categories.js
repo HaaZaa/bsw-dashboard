@@ -256,7 +256,6 @@ const Categories = () => {
               }}
             />
             <div className="mt-2">
-              {console.log(editModal)}
               <Input
                 type="select"
                 name="parentCategory"

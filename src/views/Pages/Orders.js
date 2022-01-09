@@ -107,10 +107,9 @@ const Orders = () => {
                   <th scope="col">Quantity</th>
                   <th scope="col">Total</th>
                 </tr>
-                {/* {console.log("order: ", selected)} */}
+
                 <tbody>
                   {selected?.cartId?.product?.map((item) => {
-                    // console.log("item:", item);
                     return (
                       <>
                         <td>{item?.productId?.name}</td>
@@ -219,7 +218,7 @@ const Orders = () => {
                                 View
                               </Button>
                             </td>
-                            {console.log(item)}
+
                             <td>{item?.name}</td>
                             <td>{item?.phoneNo}</td>
                             <td>

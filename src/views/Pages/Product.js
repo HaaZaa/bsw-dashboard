@@ -522,7 +522,6 @@ const Product = () => {
                                   .put(`/product/${item._id}/delete`)
                                   .then((responce) => {
                                     fetchData();
-                                    console.log(responce.data);
                                   })
                                   .catch((err) => {
                                     console.log(err);

@@ -55,7 +55,6 @@ const Slider = () => {
     if (name === "addSlider") {
       let value = props.target.files[0];
       setInput((values) => ({ ...values, [name]: value }));
-      console.log(input.addSlider);
     }
   };
   let handleSubmit = (props) => {

@@ -18,31 +18,29 @@ import { Store } from "StoreContext.js";
 import { useState, useEffect } from "react";
 const Profile = () => {
   const store = new Store();
-  const [tax, setTax] = useState({});
+
   useEffect(() => {
     fetchData();
   }, []);
+  const [input, setInput] = useState({});
+
   const fetchData = async () => {
     const result = await axios.get(`/dashboard/gettax`);
 
-    setTax(result.data);
+    setInput((prev) => {
+      prev.tax = result.data.tax;
+      prev.delivery = result.data.delivery;
+      return { ...prev };
+    });
   };
   //handle tax and delivery
-  const [input, setInput] = useState({});
   let handleTaxChange = (props) => {
-    console.log(
-      "🚀 ~ file: AccountSetting.js ~ line 33 ~ handleTaxChange ~ props",
-      props
-    );
     let name = props.target.name;
     let value = props.target.value;
+
     setInput((values) => ({ ...values, [name]: value }));
   };
   let handleTaxSubmit = (props) => {
-    console.log(
-      "🚀 ~ file: AccountSetting.js ~ line 37 ~ handleTaxSubmit ~ props",
-      props
-    );
     props.preventDefault();
     axios
       .post("/dashboard/settax", {
@@ -69,7 +67,65 @@ const Profile = () => {
         console.log(err);
       });
   };
+  //  handleChange User name Email
+  const [userData, setUserData] = useState(store.user);
+  let handleUserChange = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
 
+    setUserData((values) => ({ ...values, [name]: value }));
+  };
+  let handleUserSubmit = (props) => {
+    props.preventDefault();
+    axios
+      .put(`/user/update/${store.user._id}`, {
+        name: userData.name,
+        email: userData.email,
+      })
+      .then((response) => {
+        fetchData();
+        store.user.name = userData.name;
+        store.user.email = userData.email;
+        if (response.data.msg === "User updated Sucessfully!") {
+          toast.success(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        } else {
+          toast.warning(response.data.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2000,
+            pauseOnHover: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // user password update
+  const [password, setPassword] = useState({});
+  let handlePassChange = (props) => {
+    let name = props.target.name;
+    let value = props.target.value;
+    setPassword((values) => ({ ...values, [name]: value }));
+  };
+  let handlePassSubmit = (props) => {
+    props.preventDefault();
+    const data = {
+      oldPass: password.currentpassword,
+      newPass: password.newpassword,
+      newPassConfirm: password.newpassword,
+    };
+    axios.put(`/user/update/password/${store.user._id}`, data).then((res) => {
+      if (res.data.err) {
+        toast.error(res.data.err);
+      } else {
+        toast.success(res.data.msg);
+      }
+    });
+  };
   return (
     <>
       <Header />
@@ -109,7 +165,7 @@ const Profile = () => {
                         name="tax"
                         type="number"
                         placeholder="TAX"
-                        value={tax.tax}
+                        value={input.tax}
                         onChange={handleTaxChange}
                         validate={{
                           required: {
@@ -134,7 +190,7 @@ const Profile = () => {
                         name="delivery"
                         type="number"
                         placeholder="Delivery Charges"
-                        value={tax.delivery}
+                        value={input.delivery}
                         onChange={handleTaxChange}
                         validate={{
                           required: {
@@ -154,6 +210,7 @@ const Profile = () => {
                       className="btn btn-success "
                       type="submit"
                       size="sm"
+                      disabled={!input.tax || !input.delivery}
                     >
                       UPDATE
                     </Button>
@@ -173,7 +230,7 @@ const Profile = () => {
                   </Col>
                 </Row>
               </CardHeader>
-              <CardBody>
+              <CardBody onSubmit={handleUserSubmit}>
                 <AvForm>
                   <h6 className="heading-small text-muted mb-4">
                     User information
@@ -187,6 +244,7 @@ const Profile = () => {
                           type="text"
                           placeholder="Enter UserName"
                           value={store.user.name}
+                          onChange={handleUserChange}
                           validate={{
                             required: {
                               value: true,
@@ -210,6 +268,7 @@ const Profile = () => {
                           type="email"
                           placeholder="Enter your Email"
                           value={store.user.email}
+                          onChange={handleUserChange}
                           validate={{
                             required: {
                               value: true,
@@ -228,7 +287,7 @@ const Profile = () => {
                 </AvForm>
                 <hr className="my-4" />
                 {/* Change password */}
-                <AvForm>
+                <AvForm onSubmit={handlePassSubmit}>
                   <h6 className="heading-small text-muted mb-4">
                     Change Password
                   </h6>
@@ -242,6 +301,7 @@ const Profile = () => {
                         name="currentpassword"
                         type="password"
                         placeholder="Enter your current password"
+                        onChange={handlePassChange}
                         validate={{
                           required: {
                             value: true,
@@ -259,6 +319,7 @@ const Profile = () => {
                         name="newpassword"
                         type="password"
                         placeholder="Enter new password"
+                        onChange={handlePassChange}
                         validate={{
                           required: {
                             value: true,
@@ -278,6 +339,7 @@ const Profile = () => {
                         name="confirmpassword"
                         type="password"
                         placeholder="Confirm new password"
+                        onChange={handlePassChange}
                         validate={{
                           required: {
                             value: true,

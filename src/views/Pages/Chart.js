@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Chart from "chart.js";
 import axios from "../../axios.js";
 import React from "react";
@@ -15,6 +15,7 @@ import {
 } from "../../variables/charts.js";
 
 const ChartPage = () => {
+  const [sales, setSales] = useState(salesChart);
   useEffect(() => {
     fetchData();
   }, []);
@@ -23,8 +24,11 @@ const ChartPage = () => {
       totalOrders.data.labels = result.data.orders_month.month;
       totalOrders.data.datasets[0].data = result.data.orders_month.count;
       // ! Sales Chart data
-      salesChart.data.labels = result.data.sales_month.month;
-      salesChart.data.datasets[0].data = result.data.sales_month.sales;
+      setSales((prev) => {
+        prev.data.labels = result.data.sales_month.month;
+        prev.data.datasets[0].data = result.data.sales_month.sales;
+        return { ...prev };
+      });
     });
     // ! Orders chart data
   };
@@ -50,8 +54,8 @@ const ChartPage = () => {
               {/* Chart */}
               <div className="chart">
                 <Line
-                  data={salesChart.data}
-                  options={salesChart.options}
+                  data={sales.data}
+                  options={sales.options}
                   getDatasetAtEvent={(e) => console.log(e)}
                 />
               </div>
