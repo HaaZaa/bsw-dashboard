@@ -113,8 +113,10 @@ const Orders = () => {
                     // console.log("item:", item);
                     return (
                       <>
-                        <td>{item.productId.name}</td>
-                        <td>{item.quatity}</td>
+                        <td>{item?.productId?.name}</td>
+                        <td>${item?.productId?.price}</td>
+                        <td>{item?.quatity}</td>
+                        <td>{item?.productId?.price * item?.quatity}</td>
                       </>
                     );
                   })}
@@ -170,7 +172,7 @@ const Orders = () => {
                 type="submit"
                 size="sm"
                 href="#H@aZa"
-                color="secondany"
+                color="secondary"
                 onClick={toggle}
               >
                 Cancel
@@ -225,7 +227,7 @@ const Orders = () => {
                               {item?.address.length > 25 && "..."}
                             </td>
                             <td>{item?.invoiceNo}</td>
-                            <td>{item?.grandTotal}</td>
+                            <td>${item?.grandTotal}</td>
                             {item.status === 0 ? (
                               <td>
                                 <Badge color="" className="badge-dot mr-4">

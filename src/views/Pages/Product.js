@@ -203,18 +203,6 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter Product name",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                },
-
-                minLength: {
-                  value: 4,
-                  errorMessage: "Your name must be between 4 and 16 characters",
-                },
-                maxLength: {
-                  value: 16,
-                  errorMessage: "Your name must be between 4 and 16 characters",
-                },
               }}
             />
             <AvField
@@ -228,17 +216,10 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter  Description",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                },
 
                 minLength: {
                   value: 6,
-                  errorMessage: "Your name must be between 6 and 16 characters",
-                },
-                maxLength: {
-                  value: 16,
-                  errorMessage: "Your name must be between 6 and 16 characters",
+                  errorMessage: "Your name must be atleast 10 characters",
                 },
               }}
             />
@@ -253,19 +234,6 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter Price",
                 },
-                pattern: {
-                  value: "^[0-9]+$",
-                  errorMessage: "Tax must be composed only with numbers",
-                },
-                minLength: {
-                  value: 2,
-                  errorMessage: "Product Price must be atleast 2 digits",
-                },
-
-                maxLength: {
-                  value: 2,
-                  errorMessage: "Maximum Lenght sholud be 2-Digits",
-                },
               }}
             />
             <AvField
@@ -279,22 +247,6 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter Manufacture Part Number",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                  errorMessage:
-                    "Tax must be composed only with Characters and numbers",
-                },
-
-                minLength: {
-                  value: 3,
-                  errorMessage:
-                    "  Manufacture Part Numbe must be atleast 3 digits",
-                },
-
-                maxLength: {
-                  value: 5,
-                  errorMessage: "Maximum Lenght sholud be 5-Digits",
-                },
               }}
             />
             <AvField
@@ -307,19 +259,6 @@ const Product = () => {
                 required: {
                   value: true,
                   errorMessage: "Please enter Product in stock",
-                },
-                pattern: {
-                  value: "^[0-9]+$",
-                  errorMessage: "Tax must be composed only with numbers",
-                },
-                minLength: {
-                  value: 1,
-                  errorMessage: "Minimum Lenght sholud be atleast 1-Digits",
-                },
-
-                maxLength: {
-                  value: 4,
-                  errorMessage: "Maximum Lenght sholud be 4-Digits",
                 },
               }}
             />
@@ -359,10 +298,10 @@ const Product = () => {
             ></Input>
           </ModalBody>
           <ModalFooter>
-            <Button className="btn btn-success" type="submit">
+            <Button className="btn btn-success" type="submit" size="sm">
               Submit
             </Button>
-            <Button onClick={toggle} color="secondary">
+            <Button onClick={toggle} color="secondary" size="sm">
               Cancel
             </Button>
           </ModalFooter>
@@ -384,18 +323,6 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter Product name",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                },
-
-                minLength: {
-                  value: 4,
-                  errorMessage: "Your name must be between 4 and 16 characters",
-                },
-                maxLength: {
-                  value: 16,
-                  errorMessage: "Your name must be between 4 and 16 characters",
-                },
               }}
             />
             <AvField
@@ -410,19 +337,11 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter  Description",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                },
 
                 minLength: {
                   value: 6,
                   errorMessage:
-                    "Product Description must be between 6 and 16 characters",
-                },
-                maxLength: {
-                  value: 16,
-                  errorMessage:
-                    "Product Description must be between 6 and 16 characters",
+                    "Product Description must be atleast 10 characters",
                 },
               }}
             />
@@ -438,19 +357,6 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter Price",
                 },
-                pattern: {
-                  value: "^[0-9]+$",
-                  errorMessage: "Tax must be composed only with numbers",
-                },
-                minLength: {
-                  value: 2,
-                  errorMessage: "Product Price must be atleast 2 digits",
-                },
-
-                maxLength: {
-                  value: 2,
-                  errorMessage: "Maximum Lenght sholud be 2-Digits",
-                },
               }}
             />
             <AvField
@@ -465,22 +371,6 @@ const Product = () => {
                   value: true,
                   errorMessage: "Please enter Manufacture Part Number",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                  errorMessage:
-                    "Tax must be composed only with Characters and numbers",
-                },
-
-                minLength: {
-                  value: 3,
-                  errorMessage:
-                    "  Manufacture Part Numbe must be atleast 3 digits",
-                },
-
-                maxLength: {
-                  value: 5,
-                  errorMessage: "Maximum Lenght sholud be 5-Digits",
-                },
               }}
             />
             <AvField
@@ -494,19 +384,6 @@ const Product = () => {
                 required: {
                   value: true,
                   errorMessage: "Please enter Product in stock",
-                },
-                pattern: {
-                  value: "^[0-9]+$",
-                  errorMessage: "Tax must be composed only with numbers",
-                },
-                minLength: {
-                  value: 1,
-                  errorMessage: "Minimum Lenght sholud be atleast 1-Digits",
-                },
-
-                maxLength: {
-                  value: 4,
-                  errorMessage: "Maximum Lenght sholud be 4-Digits",
                 },
               }}
             />
@@ -613,7 +490,7 @@ const Product = () => {
                           <td>{item?.name}</td>
                           <td>{item?.mpn}</td>
                           <td>{item?.stock}</td>
-                          <td>{item?.price}</td>
+                          <td>${item?.price}</td>
 
                           <td>
                             <Button

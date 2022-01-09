@@ -116,12 +116,6 @@ const Profile = () => {
                             value: true,
                             errorMessage: "Please enter TAX",
                           },
-                          pattern: {
-                            value: "^[0-9]+$",
-                            errorMessage:
-                              "Tax must be composed only with numbers",
-                          },
-
                           maxLength: {
                             value: 2,
                             errorMessage: "Maximum Lenght sholud be 2-Digits",
@@ -147,12 +141,6 @@ const Profile = () => {
                             value: true,
                             errorMessage: "Please enter Delivery Charges",
                           },
-                          pattern: {
-                            value: "^[0-9]+$",
-                            errorMessage:
-                              "Delivery Charges must be composed only with numbers",
-                          },
-
                           maxLength: {
                             value: 2,
                             errorMessage: "Maximum Lenght sholud be 2-Digits",
@@ -204,15 +192,7 @@ const Profile = () => {
                               value: true,
                               errorMessage: "Please enter your name",
                             },
-                            pattern: {
-                              value: "^[A-Za-z0-9]+$",
-                            },
 
-                            minLength: {
-                              value: 6,
-                              errorMessage:
-                                "Your name must be between 6 and 16 characters",
-                            },
                             maxLength: {
                               value: 16,
                               errorMessage:
@@ -234,14 +214,6 @@ const Profile = () => {
                             required: {
                               value: true,
                               errorMessage: "Please enter your E-mail",
-                            },
-                            pattern: {
-                              value: "^[A-Za-z0-9]+$",
-                            },
-
-                            maxLength: {
-                              value: 2,
-                              errorMessage: "Maximum Lenght sholud be 2-Digits",
                             },
                           }}
                         />
@@ -275,11 +247,6 @@ const Profile = () => {
                             value: true,
                             errorMessage: "Please enter your current Password",
                           },
-                          pattern: {
-                            value: "^[A-Za-z0-9]+$",
-                            errorMessage:
-                              "Delivery Charges must be composed only with numbers",
-                          },
                         }}
                       />
                     </Col>
@@ -296,9 +263,6 @@ const Profile = () => {
                           required: {
                             value: true,
                             errorMessage: "Please enter new password",
-                          },
-                          pattern: {
-                            value: "^[A-Za-z0-9]+$",
                           },
                         }}
                       />
@@ -323,9 +287,6 @@ const Profile = () => {
                             value: "newpassword",
                             errorMessage:
                               "the password you entered does not match",
-                          },
-                          pattern: {
-                            value: "^[A-Za-z0-9]+$",
                           },
                         }}
                       />

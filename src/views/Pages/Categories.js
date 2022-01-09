@@ -253,11 +253,6 @@ const Categories = () => {
                   value: true,
                   errorMessage: "Please enter a Category",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                  errorMessage:
-                    "Tax must be composed  with Charaters & numbers",
-                },
               }}
             />
             <div className="mt-2">
@@ -283,10 +278,10 @@ const Categories = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" className="btn btn-success">
+            <Button type="submit" className="btn btn-success" size="sm">
               Submit
             </Button>
-            <Button color="secondary" onClick={toggle}>
+            <Button color="secondary" onClick={toggle} size="sm">
               Cancel
             </Button>
           </ModalFooter>
@@ -312,11 +307,6 @@ const Categories = () => {
                 required: {
                   value: true,
                   errorMessage: "Please enter a Category",
-                },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                  errorMessage:
-                    "Tax must be composed  with Charaters & numbers",
                 },
               }}
             />
@@ -372,11 +362,6 @@ const Categories = () => {
                   value: true,
                   errorMessage: "Please enter a Sub-Category",
                 },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                  errorMessage:
-                    "Tax must be composed  with Charaters & numbers",
-                },
               }}
             />
             <div className="mt-2">
@@ -397,10 +382,10 @@ const Categories = () => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button className="btn btn-success" type="submit">
+            <Button className="btn btn-success" type="submit" size="sm">
               Submit
             </Button>
-            <Button color="secondary" onClick={scToggle}>
+            <Button color="secondary" onClick={scToggle} size="sm">
               Cancel
             </Button>
           </ModalFooter>
@@ -426,11 +411,6 @@ const Categories = () => {
                 required: {
                   value: true,
                   errorMessage: "Please enter a Sub-Category",
-                },
-                pattern: {
-                  value: "^[A-Za-z0-9]+$",
-                  errorMessage:
-                    "Tax must be composed  with Charaters & numbers",
                 },
               }}
             />
@@ -474,7 +454,7 @@ const Categories = () => {
                   <div className="col text-right">
                     <Button
                       color="btn btn-info"
-                      href="#pablo"
+                      href="#H@za"
                       onClick={toggle}
                       size="sm"
                     >
@@ -583,7 +563,7 @@ const Categories = () => {
                         <td>
                           <Button
                             className="btn btn-success"
-                            href="#pablo"
+                            href="#H@zA"
                             onClick={() => {
                               setDataScModal(item);
                               ScEditToggle();

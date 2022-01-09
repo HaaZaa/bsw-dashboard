@@ -47,7 +47,7 @@ const User = () => {
                               {item?.address.length > 25 && "..."}
                             </td>
                             {item.status === true ? (
-                              <td>Actice</td>
+                              <td>Active</td>
                             ) : (
                               <td>InActive</td>
                             )}
