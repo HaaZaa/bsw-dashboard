@@ -159,7 +159,7 @@ const Orders = () => {
             <ModalFooter>
               <div>
                 <a
-                  href={`http://localhost:5000/order/invoice/${selected?._id}`}
+                  href={`http://bswengineering.com/api/order/invoice/${selected?._id}`}
                   target="_blank"
                   rel="noreferrer"
                 >

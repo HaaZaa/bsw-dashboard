@@ -172,10 +172,6 @@ const Profile = () => {
                             value: true,
                             errorMessage: "Please enter TAX",
                           },
-                          maxLength: {
-                            value: 2,
-                            errorMessage: "Maximum Lenght sholud be 2-Digits",
-                          },
                         }}
                       >
                         $
@@ -196,10 +192,6 @@ const Profile = () => {
                           required: {
                             value: true,
                             errorMessage: "Please enter Delivery Charges",
-                          },
-                          maxLength: {
-                            value: 2,
-                            errorMessage: "Maximum Lenght sholud be 2-Digits",
                           },
                         }}
                       />

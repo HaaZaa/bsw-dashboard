@@ -478,12 +478,12 @@ const Product = () => {
                           <td>
                             <img
                               alt=""
-                              src={`http://localhost:5000/${item?.image}`}
+                              src={`http://bswengineering.com/api/${item?.image}`}
                               width={"50px"}
                               onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src =
-                                  "http://localhost:5000/uploads/images/default.png";
+                                  "http://bswengineering.com/api/uploads/images/default.png";
                               }}
                             />
                           </td>

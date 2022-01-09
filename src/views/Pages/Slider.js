@@ -139,7 +139,7 @@ const Slider = () => {
                         <Item>
                           <img
                             alt=""
-                            src={`http://localhost:5000/${item?.image}`}
+                            src={`http://bswengineering.com/api/${item?.image}`}
                             width={"100%"}
                           />
                           <div className=" mt-3">

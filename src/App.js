@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       {!loading && (
-        <BrowserRouter>
+        <BrowserRouter basename="/dashboard/">
           <Switch>
             {store.loggedIn !== true ? (
               <>
