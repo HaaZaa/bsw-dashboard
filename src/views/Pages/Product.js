@@ -477,14 +477,18 @@ const Product = () => {
                         <tr>
                           <td>
                             <img
-                              alt=""
+                              alt="No Image"
                               src={`http://bswengineering.com/api/${item?.image}`}
                               width={"50px"}
+                              // onErrorImageURL="https://via.placeholder.com/1000x600?text=No+Image+1"
                               onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src =
-                                  "http://bswengineering.com/api/uploads/images/default.png";
+                                  "https://thumbs.dreamstime.com/b/no-image-icon-vector-available-picture-symbol-isolated-white-background-suitable-user-interface-element-205805243.jpg";
                               }}
+                              // onError={(e) => {
+                              //   e.target.src = require("../../assets/img/brand/bsw-logo-small_-removebg-preview.png");
+                              // }}
                             />
                           </td>
                           <td>{item?.name}</td>

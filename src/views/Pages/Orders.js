@@ -111,48 +111,46 @@ const Orders = () => {
                 <tbody>
                   {selected?.cartId?.product?.map((item) => {
                     return (
-                      <>
+                      <tr>
                         <td>{item?.productId?.name}</td>
                         <td>${item?.productId?.price}</td>
                         <td>{item?.quatity}</td>
                         <td>{item?.productId?.price * item?.quatity}</td>
-                      </>
+                      </tr>
                     );
                   })}
                 </tbody>
               </Table>
               <Row className="mt-5">
                 <Col>
-                  <h3 className="text-left ml-9">SubTotal:</h3>
+                  <h3 className="text-left">SubTotal:</h3>
                 </Col>
                 <Col>
-                  <h3 className="text-right mr-9">${selected?.goodsTotal}</h3>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <h3 className="text-left ml-9">GST:</h3>
-                </Col>
-                <Col>
-                  <h3 className="text-right mr-9">${selected?.tax}</h3>
+                  <h3 className="text-right ">${selected?.goodsTotal}</h3>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <h3 className="text-left ml-9">Delivery Charges:</h3>
+                  <h3 className="text-left ">GST:</h3>
                 </Col>
                 <Col>
-                  <h3 className="text-right mr-9">
-                    ${selected?.deliveryCharges}
-                  </h3>
+                  <h3 className="text-right ">${selected?.tax}</h3>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <h3 className="text-left ml-9">Grand Total:</h3>
+                  <h3 className="text-left ">Delivery Charges:</h3>
                 </Col>
                 <Col>
-                  <h3 className="text-right mr-9">${selected?.grandTotal}</h3>
+                  <h3 className="text-right ">${selected?.deliveryCharges}</h3>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <h3 className="text-left ">Grand Total:</h3>
+                </Col>
+                <Col>
+                  <h3 className="text-right ">${selected?.grandTotal}</h3>
                 </Col>
               </Row>
             </ModalBody>

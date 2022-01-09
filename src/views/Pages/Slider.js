@@ -35,6 +35,9 @@ const Item = styled.div`
   text-align: center;
   min-height: 70px;
   background-color: #f2f2f2;
+  @media (max-width: 550px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const Slider = () => {
@@ -117,7 +120,6 @@ const Slider = () => {
         </Form>
       </Modal>
       <Container className="mt--7" fluid>
-        {/* Table */}
         <Row>
           <div className="col">
             <Card className="shadow">
@@ -137,11 +139,18 @@ const Slider = () => {
                     {slider.map((item) => {
                       return (
                         <Item>
-                          <img
-                            alt=""
-                            src={`http://bswengineering.com/api/${item?.image}`}
-                            width={"100%"}
-                          />
+                          <div style={{ minHeight: "10em" }}>
+                            <img
+                              style={{
+                                width: "100%",
+                                overflow: "hidden",
+                                height: "10em",
+                                aspectRatio: 1,
+                              }}
+                              alt=""
+                              src={`http://bswengineering.com/api/${item?.image}`}
+                            />
+                          </div>
                           <div className=" mt-3">
                             <Button
                               color="btn btn-danger  mb-4 "
@@ -173,7 +182,10 @@ const Slider = () => {
                             >
                               Delete
                             </Button>
-                            <label className="custom-toggle custom-toggle-success  ml-8">
+                            <label
+                              className="custom-toggle custom-toggle-success"
+                              style={{ marginLeft: "40%" }}
+                            >
                               <input
                                 type="checkbox"
                                 checked={item.active}
