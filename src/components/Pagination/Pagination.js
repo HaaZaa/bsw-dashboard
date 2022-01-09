@@ -15,8 +15,11 @@ const pagination = (props) => {
       )}
       <PaginationItem>
         <PaginationLink
-          style={{ cursor: "default" }}
-          style={{ backgroundColor: "#28a745", color: "white" }}
+          style={{
+            backgroundColor: "#28a745",
+            color: "white",
+            cursor: "default",
+          }}
         >
           {props.current_page}
         </PaginationLink>
@@ -37,39 +40,3 @@ const pagination = (props) => {
 };
 
 export default pagination;
-// import React from "react";
-// import Pagination from "@mui/material/Pagination";
-// import { makeStyles } from "@mui/styles";
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: "100%",
-//     display: "grid",
-//     placeItems: "center",
-//     marginTop: 10,
-//   },
-//   item: {
-//     "& .Mui-selected": {
-//       backgroundColor: "red",
-//     },
-//   },
-// }));
-
-// export default function PaginationRounded(props) {
-//   const classes = useStyles();
-
-//   return (
-//     <div className={classes.root}>
-//       <Pagination
-//         count={props.count}
-//         color="primary"
-//         shape="rounded"
-//         // siblingCount={0}
-//         page={props.page}
-//         className={classes.item}
-//         defaultPage={props.page}
-//         onChange={props.onChange}
-//       />
-//     </div>
-//   );
-// }
