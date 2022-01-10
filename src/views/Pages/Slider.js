@@ -148,7 +148,7 @@ const Slider = () => {
                                 aspectRatio: 1,
                               }}
                               alt=""
-                              src={`http://bswengineering.com/api/${item?.image}`}
+                              src={`https://bswengineering.com/api/${item?.image}`}
                             />
                           </div>
                           <div className=" mt-3">

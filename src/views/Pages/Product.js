@@ -478,7 +478,7 @@ const Product = () => {
                           <td>
                             <img
                               alt="No Image"
-                              src={`http://bswengineering.com/api/${item?.image}`}
+                              src={`https://bswengineering.com/api/${item?.image}`}
                               width={"50px"}
                               // onErrorImageURL="https://via.placeholder.com/1000x600?text=No+Image+1"
                               onError={(e) => {
