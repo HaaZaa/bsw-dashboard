@@ -289,13 +289,7 @@ const Product = () => {
               multiple
             ></Input>
             <h5 className="mt-2">Upload product PDF file</h5>
-            <Input
-              name="pPDF"
-              type="file"
-              onChange={handleChange}
-              className="mt-2"
-              required
-            ></Input>
+            <Input name="pPDF" type="file" onChange={handleChange} className="mt-2" required></Input>
           </ModalBody>
           <ModalFooter>
             <Button className="btn btn-success" type="submit" size="sm">
@@ -340,8 +334,7 @@ const Product = () => {
 
                 minLength: {
                   value: 6,
-                  errorMessage:
-                    "Product Description must be atleast 10 characters",
+                  errorMessage: "Product Description must be atleast 10 characters",
                 },
               }}
             />
@@ -416,13 +409,7 @@ const Product = () => {
               multiple
             />
             <h5 className="mt-2">Upload product PDF file</h5>
-            <Input
-              name="pPDF"
-              type="file"
-              className="mt-2"
-              onChange={handleEditChange}
-              required
-            />
+            <Input name="pPDF" type="file" className="mt-2" onChange={handleEditChange} required />
           </ModalBody>
           <ModalHeader>
             <Button size="sm" className="btn btn-success" type="submit">
@@ -446,12 +433,7 @@ const Product = () => {
                   </div>
 
                   <div className="col text-right">
-                    <Button
-                      color="btn btn-info"
-                      herf="#H@za"
-                      size="sm"
-                      onClick={toggle}
-                    >
+                    <Button color="btn btn-info" herf="#H@za" size="sm" onClick={toggle}>
                       ADD NEW PRODUCT
                     </Button>
                   </div>
@@ -478,7 +460,7 @@ const Product = () => {
                           <td>
                             <img
                               alt="No Image"
-                              src={`https://bswengineering.com/api/${item?.image}`}
+                              src={`http://localhost:5000/${item?.image}`}
                               width={"50px"}
                               // onErrorImageURL="https://via.placeholder.com/1000x600?text=No+Image+1"
                               onError={(e) => {
@@ -549,10 +531,8 @@ const Product = () => {
                                     .then((response) => {
                                       fetchData();
                                       if (
-                                        (response.data.msg ===
-                                          "Product Added to Featured Products!") |
-                                        (response.data.msg ===
-                                          "Product Removed from Featured Products!")
+                                        (response.data.msg === "Product Added to Featured Products!") |
+                                        (response.data.msg === "Product Removed from Featured Products!")
                                       ) {
                                         toast.success(response.data.msg, {
                                           position: toast.POSITION.BOTTOM_RIGHT,

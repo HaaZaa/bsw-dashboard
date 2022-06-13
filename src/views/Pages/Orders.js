@@ -66,12 +66,7 @@ const Orders = () => {
     <div>
       <Header />
       <Container className="mt--7" fluid>
-        <Modal
-          isOpen={modal}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
+        <Modal isOpen={modal} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
           <Form onSubmit={handleSubmit}>
             <ModalHeader toggle={toggle}>ORDER INFORMATION</ModalHeader>
             <ModalBody>
@@ -85,9 +80,7 @@ const Orders = () => {
               </Row>
               <Row className="mt-5">
                 <Col>
-                  <h1 className="text-left">
-                    Invoice No.{selected?.invoiceNo}
-                  </h1>
+                  <h1 className="text-left">Invoice No.{selected?.invoiceNo}</h1>
                 </Col>
               </Row>
               <Row>
@@ -156,22 +149,12 @@ const Orders = () => {
             </ModalBody>
             <ModalFooter>
               <div>
-                <a
-                  href={`https://bswengineering.com/api/order/invoice/${selected?._id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={`http://localhost:5000/order/invoice/${selected?._id}`} target="_blank" rel="noreferrer">
                   Download
                 </a>
               </div>
 
-              <Button
-                type="submit"
-                size="sm"
-                href="#H@aZa"
-                color="secondary"
-                onClick={toggle}
-              >
+              <Button type="submit" size="sm" href="#H@aZa" color="secondary" onClick={toggle}>
                 Cancel
               </Button>
             </ModalFooter>
@@ -273,17 +256,12 @@ const Orders = () => {
                                 >
                                   <i className="fas fa-ellipsis-v" />
                                 </DropdownToggle>
-                                <DropdownMenu
-                                  className="dropdown-menu-arrow"
-                                  right
-                                >
+                                <DropdownMenu className="dropdown-menu-arrow" right>
                                   <DropdownItem
                                     herf="#H@za"
                                     onClick={() =>
                                       axios
-                                        .put(
-                                          `/order/status/${item._id}?status=1`
-                                        )
+                                        .put(`/order/status/${item._id}?status=1`)
                                         .then((response) => {
                                           fetchData();
                                           console.log(response);
@@ -299,9 +277,7 @@ const Orders = () => {
                                     herf="#H@za"
                                     onClick={() =>
                                       axios
-                                        .put(
-                                          `/order/status/${item._id}?status=2`
-                                        )
+                                        .put(`/order/status/${item._id}?status=2`)
                                         .then((response) => {
                                           fetchData();
                                           console.log(response);
@@ -317,9 +293,7 @@ const Orders = () => {
                                     herf="#H@za"
                                     onClick={() =>
                                       axios
-                                        .put(
-                                          `/order/status/${item._id}?status=3`
-                                        )
+                                        .put(`/order/status/${item._id}?status=3`)
                                         .then((response) => {
                                           fetchData();
                                           console.log(response);
@@ -335,9 +309,7 @@ const Orders = () => {
                                     herf="#H@za"
                                     onClick={() =>
                                       axios
-                                        .put(
-                                          `/order/status/${item._id}?status=4`
-                                        )
+                                        .put(`/order/status/${item._id}?status=4`)
                                         .then((response) => {
                                           fetchData();
                                           console.log(response);

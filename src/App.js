@@ -20,6 +20,7 @@ function App() {
 
   const checkLogin = async () => {
     const result = await axios.patch(`/user/admin/loggedin`);
+
     if (!result.data.error) {
       updateStore({ loggedIn: true, user: result.data.user });
     }
@@ -33,18 +34,12 @@ function App() {
           <Switch>
             {store.loggedIn !== true ? (
               <>
-                <Route
-                  path="/auth"
-                  render={(props) => <AuthLayout {...props} />}
-                />
+                <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
                 <Redirect from="/" to="/auth/login" />
               </>
             ) : (
               <>
-                <Route
-                  path="/admin"
-                  render={(props) => <AdminLayout {...props} />}
-                />
+                <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
                 <Redirect from="/" to="/admin/index" />
               </>
             )}

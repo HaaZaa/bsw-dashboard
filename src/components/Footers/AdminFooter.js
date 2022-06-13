@@ -9,12 +9,7 @@ const Footer = () => {
           <Col xl="6">
             <div className="copyright text-center text-xl-left text-muted">
               © {new Date().getFullYear()}{" "}
-              <a
-                className="font-weight-bold ml-1"
-                href="https://www.bswengineering.com"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a className="font-weight-bold ml-1" href="http://localhost:5000" target="_blank" rel="noreferrer">
                 BSW Engineering
               </a>
             </div>
@@ -23,12 +18,7 @@ const Footer = () => {
             <Nav className="nav-footer justify-content-center justify-content-xl-end">
               <NavItem>
                 <div className="copyright text-center text-xl-left text-muted">
-                  <a
-                    className="font-weight-bold ml-1"
-                    href="https://bit.ly/3CY913f"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <a className="font-weight-bold ml-1" href="https://bit.ly/3CY913f" target="_blank" rel="noreferrer">
                     Powered by : MANTH SOLUTIONS
                   </a>
                 </div>

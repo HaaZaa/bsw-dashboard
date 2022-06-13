@@ -101,13 +101,7 @@ const Slider = () => {
           <ModalHeader toggle={toggle}>Add new Slider</ModalHeader>
           <ModalBody>
             <h3>Upload an image for Slider</h3>
-            <Input
-              className="mt-2"
-              name="addSlider"
-              type="file"
-              onChange={handleChange}
-              required
-            ></Input>
+            <Input className="mt-2" name="addSlider" type="file" onChange={handleChange} required></Input>
           </ModalBody>
           <ModalFooter>
             <Button className="btn btn-success" type="submit">
@@ -148,7 +142,7 @@ const Slider = () => {
                                 aspectRatio: 1,
                               }}
                               alt=""
-                              src={`https://bswengineering.com/api/${item?.image}`}
+                              src={`http://localhost:5000/${item?.image}`}
                             />
                           </div>
                           <div className=" mt-3">
@@ -160,9 +154,7 @@ const Slider = () => {
                                   .delete(`/slider/delete/${item?._id}`)
                                   .then((response) => {
                                     fetchData();
-                                    if (
-                                      response.data.msg === "Slider Deleted!"
-                                    ) {
+                                    if (response.data.msg === "Slider Deleted!") {
                                       toast.success(response.data.msg, {
                                         position: toast.POSITION.BOTTOM_RIGHT,
                                         autoClose: 2000,
@@ -182,10 +174,7 @@ const Slider = () => {
                             >
                               Delete
                             </Button>
-                            <label
-                              className="custom-toggle custom-toggle-success"
-                              style={{ marginLeft: "40%" }}
-                            >
+                            <label className="custom-toggle custom-toggle-success" style={{ marginLeft: "40%" }}>
                               <input
                                 type="checkbox"
                                 checked={item.active}
@@ -195,10 +184,8 @@ const Slider = () => {
                                     .then((response) => {
                                       fetchData();
                                       if (
-                                        response.data.msg ===
-                                          "Slider Activated" ||
-                                        response.data.msg ===
-                                          "Slider Deactivated"
+                                        response.data.msg === "Slider Activated" ||
+                                        response.data.msg === "Slider Deactivated"
                                       ) {
                                         toast.success(response.data.msg, {
                                           position: toast.POSITION.BOTTOM_RIGHT,
